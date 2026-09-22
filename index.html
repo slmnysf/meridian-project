@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="color-scheme" content="dark"/>
+<title>ARUS · Wawasan Kapabilitas Tenaga Kerja — Proyek Meridian</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%230F1923'/%3E%3Crect x='5' y='5' width='6' height='6' fill='%23E8A435'/%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923; --s1:#141F2B; --s2:#182634; --s3:#1E2C3B;
+  --line:rgba(240,237,232,.08); --line2:rgba(240,237,232,.17);
+  --ink:#F0EDE8; --dim:#8A9BB0; --faint:#5F7086;
+  --amber:#E8A435; --amber-soft:rgba(232,164,53,.13);
+  --p1:#E8A435; --p2:#6E8CAE; --p3:#4C6A8C; --p4:#3A5674; --p5:#8A9BB0;
+  --dotdim:#212E3D;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 Inter,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"tnum" 1}
+::selection{background:rgba(232,164,53,.28)}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-thumb{background:#24313f;border-radius:6px}::-webkit-scrollbar-track{background:transparent}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+:focus-visible{outline:1.5px solid var(--amber);outline-offset:2px;border-radius:4px}
+
+/* ---------- SIDEBAR ---------- */
+#side{position:fixed;inset:0 auto 0 0;width:248px;background:var(--s1);border-right:1px solid var(--line);display:flex;flex-direction:column;padding:26px 18px 18px;z-index:40}
+.brand{padding:0 10px 20px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.mark{display:flex;align-items:center;gap:9px;font-weight:700;letter-spacing:.32em;font-size:15px}
+.mark::before{content:"";width:8px;height:8px;background:var(--amber);display:inline-block}
+.sub{font-size:10.5px;color:var(--dim);margin-top:6px;letter-spacing:.04em;line-height:1.5}
+#nav{display:flex;flex-direction:column;gap:2px}
+#nav a{display:flex;align-items:center;gap:11px;padding:9px 12px;border-radius:8px;color:var(--dim);font-size:13.5px;font-weight:500;transition:.15s}
+#nav a svg{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+#nav a:hover{color:var(--ink);background:var(--s2)}
+#nav a.on{color:var(--ink);background:var(--s2)}
+.navdot{width:5px;height:5px;border-radius:50%;background:var(--amber);margin-left:auto;flex:none}
+.navbadge{margin-left:auto;background:var(--amber);color:#0F1923;font-size:9.5px;font-weight:700;border-radius:999px;padding:1px 7px;line-height:1.5;flex:none}
+.side-foot{margin-top:auto;border-top:1px solid var(--line);padding-top:14px}
+.lg-title{font-size:9.5px;letter-spacing:.18em;color:var(--faint);margin:0 0 8px 4px}
+.lg-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:10.5px;color:var(--dim);line-height:1.45}
+.build{font-size:10px;color:var(--faint);margin-top:12px;line-height:1.6;padding:0 4px}
+
+/* ---------- UTAMA ---------- */
+#main{margin-left:248px;min-height:100vh}
+#view{max-width:1180px;padding:44px 52px 90px}
+h1.vt{font-size:27px;font-weight:600;letter-spacing:-.01em}
+.vsub{color:var(--dim);margin-top:4px;font-size:13.5px}
+.sec{font-size:11px;letter-spacing:.16em;color:var(--faint);font-weight:600;margin:44px 0 16px;text-transform:uppercase}
+.note{color:var(--dim);font-size:12.5px;line-height:1.65}
+.foot{margin-top:56px;padding-top:16px;border-top:1px solid var(--line);color:var(--faint);font-size:11px}
+.grid2{display:grid;grid-template-columns:7fr 5fr;gap:24px}
+.card{background:var(--s1);border:1px solid var(--line);border-radius:12px;padding:22px 24px}
+.callout{background:var(--s1);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:12px;padding:20px 24px}
+.callout b{font-weight:600}
+
+/* ---------- LABEL & BUKTI ---------- */
+.chip{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line2);border-radius:999px;padding:2px 10px;font-size:10px;letter-spacing:.07em;font-weight:500;color:var(--dim);white-space:nowrap}
+.ev{display:inline-flex;border-radius:999px;padding:2px 9px;font-size:9.5px;letter-spacing:.08em;font-weight:600;white-space:nowrap}
+.ev-t{background:rgba(240,237,232,.14);color:var(--ink);border:1px solid transparent}
+.ev-i{background:repeating-linear-gradient(135deg,rgba(240,237,232,.16) 0 3px,transparent 3px 6px);color:var(--dim);border:1px solid var(--line)}
+.ev-d{background:transparent;color:var(--dim);border:1px solid var(--line2)}
+.ev-k{background:transparent;color:var(--faint);border:1px dashed var(--faint)}
+.evlink{font-size:11px;color:var(--dim);border-bottom:1px dotted var(--dim);padding:0 1px;cursor:pointer;transition:.15s}
+.evlink:hover{color:var(--amber);border-color:var(--amber)}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:9px;padding:10px 18px;font-size:13.5px;font-weight:600;transition:.15s}
+.btn.sm{padding:6px 12px;font-size:12px}
+.btn-a{background:var(--amber);color:#0F1923}
+.btn-a:hover{filter:brightness(1.08)}
+.btn-g{border:1px solid var(--line2);color:var(--dim)}
+.btn-g:hover{color:var(--ink);border-color:var(--dim)}
+
+/* ---------- KPI ---------- */
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px}
+.kpis.k4{grid-template-columns:repeat(4,1fr)}
+.kpi{background:var(--s1);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+.kpi .n{font-size:38px;font-weight:300;letter-spacing:-.02em;line-height:1.15}
+.kpi .n em{font-style:normal;color:var(--dim);font-size:22px}
+.kpi .l{color:var(--dim);font-size:12px;margin-top:6px;line-height:1.5}
+.kpi .l span{display:block;color:var(--faint);font-size:11px;margin-top:2px}
+.kpi.hot{border-color:rgba(232,164,53,.4);background:linear-gradient(180deg,var(--amber-soft),var(--s1) 60%)}
+.kpi.hot .n{color:var(--amber)}
+
+/* ---------- DIAGRAM BATANG ---------- */
+.bchart{display:flex;flex-direction:column;gap:9px}
+a.brow{display:grid;grid-template-columns:190px 1fr 96px;align-items:center;gap:12px;border-radius:7px;padding:3px 6px;transition:.15s}
+a.brow:hover{background:var(--s2)}
+.blab{font-size:12px;color:var(--dim);text-align:right;line-height:1.3}
+.btrack{height:14px;background:var(--s3);border-radius:4px;overflow:hidden}
+.bbar{height:100%;background:var(--p2);border-radius:4px}
+.bbar.hot{background:var(--amber)}
+.bval{font-size:12px;color:var(--dim);display:flex;gap:6px;align-items:center}
+.btag{font-size:9px;color:var(--amber);border:1px solid rgba(232,164,53,.5);border-radius:4px;padding:0 5px;letter-spacing:.05em}
+
+/* ---------- BARIS ZONA (wilayah & tingkat) ---------- */
+.zrow{display:grid;grid-template-columns:190px 1fr 140px;align-items:center;gap:12px;border-radius:7px;padding:5px 6px;transition:.15s;width:100%;text-align:left}
+.zrow:hover,.zrow.on{background:var(--s2)}
+.zl{font-size:12.5px;color:var(--ink);text-align:right;line-height:1.3}
+.zl span{display:block;font-size:10.5px;color:var(--faint)}
+.ztrack{height:14px;background:var(--s3);border-radius:4px;overflow:hidden;display:flex}
+.zbar{height:100%;background:var(--amber);border-radius:4px}
+.ztrack.seg{background:transparent}
+.ztrack.seg i{display:block;height:100%}
+.zg{background:#22303F}.zm{background:var(--p4)}.za{background:var(--amber)}
+.zv{font-size:11.5px;color:var(--dim);line-height:1.45}
+.zv b{color:var(--ink);font-weight:600;font-size:12.5px}
+
+/* ---------- PANEL KELUARGA/WILAYAH ---------- */
+.fdp{margin-top:22px}
+.fdp .row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+.fdp .cell .n{font-size:24px;font-weight:300}
+.fdp .cell .l{font-size:11px;color:var(--faint);margin-top:2px}
+
+/* ---------- GARIS WAKTU ---------- */
+.tl{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding-top:86px;min-width:660px}
+.tl::before{content:"";position:absolute;top:60px;left:4%;right:4%;height:1.5px;background:var(--line2)}
+.tl-fill{position:absolute;top:59px;left:12.5%;width:16.7%;height:3px;background:var(--amber);opacity:.5;border-radius:2px}
+.tl-now{position:absolute;top:0;left:29.2%;font-size:10px;color:var(--amber);letter-spacing:.12em;font-weight:600;white-space:nowrap}
+.tl-now i{display:block;width:1.5px;height:42px;background:var(--amber);margin:4px 0 0 2px}
+.tl-node{position:relative;text-align:center}
+.tl-node::before{content:"";position:absolute;top:-33px;left:50%;transform:translateX(-50%);width:11px;height:11px;border-radius:50%;background:var(--s3);border:2px solid var(--dim)}
+.tl-node.end::before{background:var(--amber);border-color:var(--amber)}
+.tl-node .t{font-size:11px;color:var(--amber);letter-spacing:.08em;font-weight:600}
+.tl-node .d{font-size:12px;color:var(--dim);margin-top:5px;line-height:1.5;padding:0 4px}
+
+/* ---------- MOMEN UTAMA ---------- */
+.aha{ text-align:center;padding:26px 0 6px}
+.big{font-size:100px;font-weight:300;letter-spacing:-.03em;line-height:1}
+.big .am{color:var(--amber)}
+.aha .sub{color:var(--ink);font-size:15px;margin-top:8px}
+.aha p{max-width:660px;margin:16px auto 0;color:var(--dim);font-size:13.5px;line-height:1.7}
+#post{display:none}
+#post.on{display:block}
+#pre.off{display:none}
+.big2{font-size:52px;font-weight:300;letter-spacing:-.02em}
+.statrow{display:flex;justify-content:center;gap:26px;margin-top:14px;flex-wrap:wrap}
+.statrow div{font-size:12px;color:var(--dim)}
+.statrow b{color:var(--ink);font-weight:600;font-size:15px;display:block}
+#dotgrid{display:grid;grid-template-columns:repeat(24,11px);gap:5px;justify-content:center;margin:30px auto 8px;width:max-content}
+.dot{width:11px;height:11px;border-radius:50%;background:var(--dotdim);transition:background .55s ease,border .55s ease}
+.dot.p1{background:var(--p1)}.dot.p2{background:var(--p2)}.dot.p3{background:var(--p3)}.dot.p4{background:var(--p4)}
+.dot.p5{background:transparent;border:1.5px dashed var(--p5)}
+.dotcap{font-size:11px;color:var(--faint);letter-spacing:.06em}
+.stack{display:flex;height:16px;border-radius:5px;overflow:hidden;margin:26px 0 10px;opacity:0;transition:opacity .6s .3s}
+.stack.in{opacity:1}
+.stack .s1s{background:var(--p1)}.stack .s2s{background:var(--p2)}.stack .s3s{background:var(--p3)}.stack .s4s{background:var(--p4)}
+.stack .s5s{background:repeating-linear-gradient(135deg,var(--s3) 0 4px,transparent 4px 8px);border:1px dashed var(--p5)}
+.legrow{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-bottom:26px}
+.legrow span{font-size:11.5px;color:var(--dim);display:flex;align-items:center;gap:6px}
+.legrow i{width:9px;height:9px;border-radius:50%;display:inline-block}
+#paths{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:14px;opacity:0;transform:translateY(14px);transition:.5s}
+#paths.in{opacity:1;transform:none}
+.pcard{background:var(--s1);border:1px solid var(--line);border-radius:11px;padding:18px;opacity:0;transform:translateY(10px);transition:.45s}
+.pcard.in{opacity:1;transform:none}
+.pcard .code{font-size:10px;letter-spacing:.14em;color:var(--faint)}
+.pcard .nm{font-size:13px;font-weight:600;margin-top:2px;line-height:1.35;min-height:36px}
+.pcard .cnt{font-size:30px;font-weight:300;margin-top:8px}
+.pcard .pct{font-size:11px;color:var(--faint);margin-left:4px}
+.pcard .dst{font-size:11px;color:var(--dim);margin-top:8px;line-height:1.5;border-top:1px solid var(--line);padding-top:8px}
+.pcard .bukti{font-size:11px;color:var(--dim);line-height:1.55;margin-top:8px}
+.pcard .meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;align-items:center}
+.pcard a.lnk{font-size:11px;color:var(--dim);border-bottom:1px dotted var(--dim);margin-top:10px;display:inline-block}
+.pcard a.lnk:hover{color:var(--amber);border-color:var(--amber)}
+
+/* ---------- KARTU ORANG ---------- */
+.pcards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.person{background:var(--s1);border:1px solid var(--line);border-radius:11px;padding:18px 20px;cursor:pointer;transition:.15s}
+.person:hover{border-color:var(--line2);background:var(--s2)}
+.person .nm{font-size:15px;font-weight:600}
+.person .nm span{color:var(--faint);font-weight:400;font-size:12px}
+.person .tl2{font-size:12px;color:var(--dim);margin-top:2px}
+.person .tags{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.mini{margin-top:14px}
+.mini .tr{height:4px;background:var(--s3);border-radius:3px;position:relative;margin-top:5px}
+.mini .fl{position:absolute;height:100%;background:var(--p2);border-radius:3px}
+.mini .lb{font-size:10.5px;color:var(--faint)}
+.person .op{font-size:11px;color:var(--dim);margin-top:12px;border-bottom:1px dotted var(--dim);display:inline-block}
+.person:hover .op{color:var(--amber);border-color:var(--amber)}
+
+/* ---------- TABEL ---------- */
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{text-align:left;font-size:10px;letter-spacing:.12em;color:var(--faint);font-weight:600;padding:10px 12px;border-bottom:1px solid var(--line2);text-transform:uppercase}
+.tbl td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tbl tr.click{cursor:pointer;transition:.12s}
+.tbl tr.click:hover{background:var(--s2)}
+.tbl .nm2{font-weight:600}
+.tbl .sub2{font-size:11px;color:var(--faint)}
+.tbl .dim2{color:var(--dim);font-size:12px}
+.filters{display:flex;gap:10px;margin:18px 0 14px;flex-wrap:wrap}
+.filters input,.filters select{background:var(--s2);border:1px solid var(--line2);color:var(--ink);border-radius:8px;padding:9px 13px;font:inherit;font-size:13px}
+.filters input{width:250px}
+.filters input::placeholder{color:var(--faint)}
+.filters select{appearance:none;padding-right:26px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%238A9BB0'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+.empty{color:var(--faint);text-align:center;padding:30px 0!important}
+
+/* ---------- NOTIFIKASI ---------- */
+.fitem{display:grid;grid-template-columns:140px 1fr;gap:14px;padding:14px 2px;border-bottom:1px solid var(--line)}
+.ftime{font-size:11px;color:var(--faint);line-height:1.5}
+.ftime .chip{margin-top:6px}
+.ftags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.fmsg{font-size:13px;line-height:1.6;color:var(--ink)}
+.facts{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+
+/* ---------- TONGGAK (stepper) ---------- */
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pstep{display:flex;margin-top:16px}
+.st{flex:1;text-align:center;position:relative;min-width:0;padding:0 3px}
+.st::before{content:"";position:absolute;top:5.5px;left:-50%;width:100%;height:1.5px;background:var(--line2)}
+.st:first-child::before{display:none}
+.st i{display:block;width:12px;height:12px;border-radius:50%;margin:0 auto 7px;border:2px solid var(--faint);background:var(--s3);position:relative;z-index:1}
+.st.d i{background:var(--p2);border-color:var(--p2)}
+.st.r i{background:var(--amber);border-color:var(--amber)}
+.st.a i{background:transparent;border:2px dashed var(--amber)}
+.st b{display:block;font-size:10.5px;font-weight:500;color:var(--dim);line-height:1.35}
+.st.d b,.st.r b{color:var(--ink)}
+.st.a b{color:var(--amber)}
+.st span{display:block;font-size:9.5px;color:var(--faint);margin-top:1px}
+
+/* ---------- PANEL SAMPING (PROFIL) ---------- */
+#dwrap{position:fixed;inset:0;z-index:70;visibility:hidden}
+#dwrap.open{visibility:visible}
+#dback{position:absolute;inset:0;background:rgba(9,14,20,.55);opacity:0;transition:.25s}
+#dwrap.open #dback{opacity:1}
+#drawer{position:absolute;top:0;right:0;bottom:0;width:480px;max-width:94vw;background:var(--s1);border-left:1px solid var(--line2);transform:translateX(102%);transition:transform .28s cubic-bezier(.3,.8,.3,1);overflow-y:auto;padding:28px 30px 40px}
+#dwrap.open #drawer{transform:none}
+.d-h .nm{font-size:20px;font-weight:600}
+.d-h .nm span{color:var(--faint);font-weight:400;font-size:13px}
+.d-h .tl2{color:var(--dim);font-size:12.5px;margin-top:3px}
+.d-h .tags{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+.d-close{position:absolute;top:20px;right:22px;color:var(--faint);font-size:20px;line-height:1;padding:4px}
+.d-close:hover{color:var(--ink)}
+.d-sec{margin-top:26px}
+.d-sec h4{font-size:10.5px;letter-spacing:.14em;color:var(--faint);font-weight:600;margin-bottom:12px;text-transform:uppercase}
+.idrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.idpill{border:1px solid var(--line2);border-radius:8px;padding:7px 11px;font-size:11.5px;background:var(--s2)}
+.idpill span{display:block;font-size:9.5px;color:var(--faint);letter-spacing:.08em;margin-bottom:1px}
+.idpill.lock{border-style:dashed;color:var(--faint)}
+.idsep{color:var(--faint);font-size:11px}
+.cap-row{display:grid;grid-template-columns:1fr auto auto;gap:4px 12px;padding:10px 0;border-bottom:1px solid var(--line);align-items:center}
+.cap-row .cn{font-size:13px}
+.cap-row .cl{font-size:11px;color:var(--faint)}
+.cap-row .src{grid-column:1/-1;font-size:11px;color:var(--faint);line-height:1.5}
+.matchbar{height:7px;background:var(--s3);border-radius:4px;position:relative;margin:10px 0 6px}
+.matchbar .fl{position:absolute;height:100%;background:var(--amber);border-radius:4px}
+.d-actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.acc{border:1px solid var(--line);border-radius:9px;margin-top:12px;background:var(--s2)}
+.acc-h{width:100%;display:flex;justify-content:space-between;align-items:center;padding:11px 14px;font-size:12.5px;color:var(--dim);text-align:left}
+.acc-h:hover{color:var(--ink)}
+.acc-b{display:none;padding:2px 14px 12px;font-size:12px;color:var(--dim);line-height:1.7}
+.acc.open .acc-b{display:block}
+.acc.open .acc-h{color:var(--ink)}
+.acc-h::after{content:"+";color:var(--faint)}
+.acc.open .acc-h::after{content:"–"}
+.pathrow{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-top:10px;background:var(--s2)}
+.pathrow.pr-main{border-color:rgba(232,164,53,.35)}
+.pr-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pr-top b{font-size:13px}
+.flag{margin-top:10px;font-size:11.5px;color:var(--amber);line-height:1.55;border:1px dashed rgba(232,164,53,.5);border-radius:8px;padding:8px 12px}
+.gapli{font-size:12.5px;color:var(--dim);padding:7px 0 7px 16px;position:relative;line-height:1.5}
+.gapli::before{content:"";position:absolute;left:0;top:14px;width:7px;height:7px;border-radius:50%;border:1.5px dashed var(--p5)}
+
+/* ---------- POPOVER / TOOLTIP / TOAST ---------- */
+#pop{position:fixed;width:340px;max-width:92vw;background:var(--s2);border:1px solid var(--line2);border-radius:11px;box-shadow:0 14px 40px rgba(0,0,0,.45);padding:15px 17px;z-index:90;display:none}
+#pop.open{display:block}
+.pop-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;font-size:13px;font-weight:600;margin-bottom:10px}
+.pop-x{color:var(--faint);font-size:16px;line-height:1}
+.pop-grid{display:grid;grid-template-columns:88px 1fr;gap:7px 10px;font-size:11.5px;color:var(--dim);line-height:1.55}
+.pk{color:var(--faint);font-size:9.5px;letter-spacing:.1em;padding-top:2px}
+#tt{position:fixed;background:#1B2836;border:1px solid var(--line2);border-radius:8px;padding:9px 12px;font-size:11.5px;color:var(--dim);z-index:95;pointer-events:none;display:none;max-width:280px;line-height:1.55;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+#tt.open{display:block}
+#tt b{color:var(--ink);display:block;font-size:12px;margin-bottom:2px}
+#toast{position:fixed;bottom:26px;left:50%;transform:translate(-50%,16px);background:var(--s2);border:1px solid var(--line2);border-radius:10px;padding:12px 20px;font-size:12.5px;color:var(--ink);z-index:99;opacity:0;transition:.3s;pointer-events:none;max-width:520px;text-align:center;line-height:1.55;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- LAIN ---------- */
+.funnel{display:grid;grid-template-columns:1fr 26px 1fr 26px 1fr 26px 1fr;align-items:stretch;gap:6px}
+.fstage{background:var(--s1);border:1px solid var(--line);border-radius:11px;padding:18px;text-align:center}
+.fnum{font-size:34px;font-weight:300}
+.flab{font-size:12px;color:var(--ink);margin-top:2px;font-weight:500;line-height:1.4}
+.fsub{font-size:10.5px;color:var(--faint);margin-top:5px;line-height:1.5}
+.farrow{display:flex;align-items:center;justify-content:center;color:var(--faint)}
+.ladder{display:flex;gap:8px;flex-wrap:wrap}
+.ladder .g{border:1px solid var(--line);border-radius:9px;padding:9px 13px;background:var(--s1)}
+.ladder .g b{font-size:12px;display:block}
+.ladder .g span{font-size:10px;color:var(--faint);display:block;margin-top:2px;max-width:130px}
+.famtabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.famtabs button{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:12px;color:var(--dim);transition:.15s;background:var(--s1)}
+.famtabs button:hover{color:var(--ink)}
+.famtabs button.on{color:var(--ink);border-color:var(--amber);background:var(--amber-soft)}
+.bandid{display:flex;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.bandid .bc{font-size:11px;color:var(--amber);letter-spacing:.08em;white-space:nowrap}
+.bandid .bn{font-size:13.5px;font-weight:500}
+.bandid .bl{font-size:11px;color:var(--faint);white-space:nowrap}
+.bandold{font-size:11px;color:var(--faint);line-height:1.6;margin-top:2px}
+.anat{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center}
+.anat .card{padding:20px}
+.anat .before{border-style:dashed}
+.anat h5{font-size:9.5px;letter-spacing:.16em;color:var(--faint);margin-bottom:8px}
+.anat .ttl{font-size:16px;font-weight:600}
+.anat .rw{font-size:12px;color:var(--dim);margin-top:6px;line-height:1.6}
+.anat .nt{font-size:11px;color:var(--faint);margin-top:10px;line-height:1.55;border-top:1px solid var(--line);padding-top:9px}
+.anat .ar{color:var(--faint);font-size:22px}
+.ebar{margin:14px 0}
+.ebar .lb{display:flex;justify-content:space-between;font-size:12.5px;color:var(--dim);margin-bottom:6px}
+.ebar .lb b{color:var(--ink);font-weight:600}
+.ebar .tr{height:16px;background:var(--s3);border-radius:5px;overflow:hidden}
+.ebar .fl{height:100%;border-radius:5px}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.tcard{background:var(--s1);border:1px solid var(--line);border-radius:11px;padding:18px 20px}
+.tcard h5{font-size:10px;letter-spacing:.14em;color:var(--amber);margin-bottom:10px}
+.tcard p{font-size:12.5px;color:var(--dim);line-height:1.65}
+.sysrow{display:grid;grid-template-columns:110px 1fr auto;gap:10px;padding:13px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.sysrow .vn{font-size:10.5px;color:var(--faint)}
+.sysrow .nt{font-size:11.5px;color:var(--dim);line-height:1.55}
+svg text{font-family:inherit}
+.qwrap{overflow-x:auto}
+@media (max-width:1080px){
+  #side{position:static;width:auto;flex-direction:row;align-items:center;flex-wrap:wrap;gap:6px;padding:14px 18px}
+  .brand{border:none;padding:0 14px 0 0;margin:0}
+  #nav{flex-direction:row;flex-wrap:wrap}
+  .side-foot{display:none}
+  #main{margin-left:0}
+  #view{padding:26px 20px 70px}
+  .grid2,.kpis,.pcards,.trio,.anat,.mgrid{grid-template-columns:1fr}
+  .kpis.k4{grid-template-columns:repeat(2,1fr)}
+  .kpis{gap:10px}
+  .funnel{grid-template-columns:1fr;}
+  .farrow{transform:rotate(90deg)}
+  a.brow{grid-template-columns:110px 1fr 84px}
+  .zrow{grid-template-columns:110px 1fr 100px}
+  .fitem{grid-template-columns:1fr;gap:6px}
+  #drawer{width:100vw;max-width:100vw}
+}
+</style>
+</head>
+<body>
+<noscript><p style="padding:40px">Aplikasi ini membutuhkan JavaScript.</p></noscript>
+
+<aside id="side">
+  <div class="brand">
+    <div class="mark">ARUS</div>
+    <div class="sub">Wawasan tenaga kerja berbasis kapabilitas</div>
+  </div>
+  <nav id="nav">
+    <a href="#/ringkasan" data-r="ringkasan"><svg viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>Ringkasan</a>
+    <a href="#/eksposur" data-r="eksposur"><svg viewBox="0 0 16 16"><path d="M2 14h12M2 14V2"/><circle cx="6" cy="10" r="1.6"/><circle cx="10" cy="6" r="1.6"/><circle cx="12.5" cy="10.5" r="1.2"/></svg>Peta Eksposur AI</a>
+    <a href="#/arsitektur" data-r="arsitektur"><svg viewBox="0 0 16 16"><path d="M8 1.5l6 3-6 3-6-3 6-3z"/><path d="M2 8l6 3 6-3"/><path d="M2 11.5l6 3 6-3"/></svg>Arsitektur Kapabilitas</a>
+    <a href="#/redeployment" data-r="redeployment"><svg viewBox="0 0 16 16"><path d="M2 8h4c3.5 0 3.5-5 7-5h1"/><path d="M2 8h4c3.5 0 3.5 5 7 5h1"/><path d="M12 1l2 2-2 2"/><path d="M12 11l2 2-2 2"/></svg>Penempatan Ulang<span class="navdot"></span></a>
+    <a href="#/pemantauan" data-r="pemantauan"><svg viewBox="0 0 16 16"><path d="M8 2.5a3.5 3.5 0 0 0-3.5 3.5v2.8L3 12h10l-1.5-3.2V6A3.5 3.5 0 0 0 8 2.5z"/><path d="M6.5 13.8a1.5 1.5 0 0 0 3 0"/></svg>Pemantauan Transisi<span class="navbadge">3</span></a>
+    <a href="#/paralel" data-r="paralel"><svg viewBox="0 0 16 16"><path d="M2.5 5h9.5M9.5 2.8L11.8 5 9.5 7.2"/><path d="M13.5 11H4M6.5 8.8L4.2 11l2.3 2.2"/></svg>Uji Paralel</a>
+    <a href="#/direktori" data-r="direktori"><svg viewBox="0 0 16 16"><circle cx="5.5" cy="4.5" r="2.2"/><path d="M2 13c.5-2.5 2-3.5 3.5-3.5S8.5 10.5 9 13"/><circle cx="11" cy="5.5" r="1.8"/><path d="M9.8 13c.4-2 1.3-3 2.7-3s2.2 1 2.5 3"/></svg>Direktori Karyawan</a>
+  </nav>
+  <div class="side-foot">
+    <div class="lg-title">JENIS BUKTI</div>
+    <div class="lg-row"><span class="ev ev-t">TERUKUR</span>dari sistem — bisa diaudit</div>
+    <div class="lg-row"><span class="ev ev-i">INFERENS</span>dari model — menentukan prioritas, bukan nasib</div>
+    <div class="lg-row"><span class="ev ev-d">DEKLARASI</span>penilaian — menunggu verifikasi</div>
+    <div class="lg-row"><span class="ev ev-k">KOSONG</span>tanpa bukti — ditampilkan apa adanya</div>
+    <div class="build" id="buildline"></div>
+  </div>
+</aside>
+
+<main id="main"><div id="view"></div></main>
+
+<div id="dwrap"><div id="dback"></div><aside id="drawer"></aside></div>
+<div id="pop"></div>
+<div id="tt"></div>
+<div id="toast"></div>
+
+<script>
+/* ================================================================
+   ARUS — pratinjau Hari ke-60, Proyek Meridian
+   Satu file, tanpa dependensi. Ganti COMPANY bila perlu.
+================================================================ */
+const COMPANY = 'PT Meridian Energi Nusantara';
+
+const S = { r:'ringkasan', revealed:false, anim:false, famSel:'fm', archFam:'fm', expTab:'fam', regSel:'sum',
+            nf:'all', dq:'', dFam:'all', dSt:'all', dPath:'all' };
+
+/* ---------------- UTIL ---------------- */
+const byId = id => document.getElementById(id);
+const fID = n => n.toLocaleString('id-ID');
+const pct = v => Math.round(v) + '%';
+const c = (n,l,t,s)=>({n,l,t,s});
+function countTo(el,val,fmt,dur){ dur=dur||1000; const t0=performance.now();
+  (function f(t){ const p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3);
+    el.textContent=fmt(Math.round(val*e)); if(p<1) requestAnimationFrame(f); })(t0); }
+let toastT;
+function toast(msg){ const t=byId('toast'); t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),3400); }
+const ACT={ verify:'Permintaan verifikasi tercatat. Tim SDM wilayah menghubungi dalam 3 hari kerja — profil terbit di hari yang sama setelah sesi ±15 menit.',
+  dl:'Ringkasan satu halaman tersedia pada versi Hari ke-90. Untuk saat ini: tangkap layar profil ini.',
+  pilot:'Persetujuan tercatat — verifikasi diperluas 250 → 2.000 profil. Jadwal bersama Serikat Pekerja muncul pada versi Hari ke-75.',
+  kur:'Kurikulum lengkap ada di profil setiap orang — buka salah satu kartu orang di bawah.',
+  mat:'Materi sesi Serikat Pekerja: data jalur per orang dan aturan verifikasi bersama. Tersedia pada versi Hari ke-75.',
+  resched:'Jadwal ulang dikirim ke peserta & HRBP — konfirmasi dalam 1×24 jam, tenggat baru maksimal 14 hari.',
+  eskalasi:'Eskalasi tercatat — HRBP wilayah Sumatera diberi tahu. Tenggat diselesaikan maksimal 7 hari.',
+  confirm:'Konfirmasi diterima — sesi 15 menit pada 10 Mar. Profil terbit di hari yang sama.',
+  swap:'Tercatat — perubahan jalur utama menunggu sesi verifikasi dan persetujuan atasan. Aturan bukti tetap berlaku.' };
+
+/* ---------------- DAFTAR BUKTI (popover) ---------------- */
+const EV = {
+ hc:{j:'Total karyawan 52.143',s:'SAP SuccessFactors (HRIS), data per 28 Feb 2026',m:'Ekstraksi penuh dan penghapusan duplikat; penyatuan ID lintas sistem',k:'Tinggi',x:'Termasuk 312 karyawan cuti panjang atau sedang penugasan',v:'Diperiksa ulang setiap Senin — terakhir 2 Mar 2026'},
+ join:{j:'Penyatuan identitas 97,2%',s:'HRIS · LMS · (Payroll dibatasi)',m:'Pencocokan probabilistik nama + tanggal + unit kerja, ambang 0,92; sisanya diperiksa manual',k:'Tinggi',x:'812 pasangan ambigu; 28 belum cocok, diverifikasi di lapangan',v:'Gelombang kedua dijadwalkan Hari ke-75'},
+ titles:{j:'1.806 nama jabatan → 12 keluarga · 78 pita',s:'HRIS (kolom nama jabatan — teks bebas)',m:'Penyeragaman teks, pengelompokan makna, validasi oleh 41 narasumber lintas wilayah',k:'Tinggi',x:'43 nama jabatan masih ambigu, menunggu konfirmasi pemilik proses',v:'Struktur akhir ditandatangani Direktur SDM, Hari ke-45'},
+ blank:{j:'45,1% data keahlian kosong',s:'Gabungan HRIS × LMS — 52.143 arsip',m:'Arsip dianggap punya bukti bila ada minimal satu: riwayat pelatihan, sertifikasi, atau penilaian atasan 2023 ke atas',k:'Tinggi',x:'Definisi konservatif; sebagian bukti sudah lama (>5 tahun) sehingga tingkatnya mungkin lebih tinggi dari kenyataan',v:'Program verifikasi cepat berjalan — 250 profil pertama'},
+ exp:{j:'Eksposur Metering 70,4% (±7 poin)',s:'38 uraian jabatan → 214 tugas unik; kontrak pengadaan PR-2025-1187 (1,9 juta meter pintar)',m:'Pemodelan otomasi per tugas: setiap tugas dinilai (sudah bisa diotomasi / perlu AI / sulit diotomasi), ditimbang jam kerja; dikoreksi jadwal pemasangan penyedia',k:'Tinggi — untuk keluarga ini',x:'Sensitif terhadap jadwal penyedia; asumsi adopsi 80% per wilayah',v:'Dibandingkan dengan 2 utilitas regional yang lebih dulu memasang'},
+ expo:{j:'Eksposur keluarga lain (±12 poin)',s:'Contoh uraian jabatan — 12 sampai 38 per keluarga',m:'Metode sama dengan Metering, tanpa koreksi kontrak pengadaan',k:'Sedang',x:'Contoh tugas lebih sedikit; kalibrasi penuh setelah model Metering tervalidasi',v:'Draf Hari ke-60 — final Hari ke-90'},
+ adj:{j:'Skor kedekatan peran 0–100',s:'Taksonomi 341 keahlian; proyeksi kebutuhan 2027 per pita',m:'Irisan portofolio keahlian sumber dan target, ditimbang kebutuhan',k:'Sedang',x:'Bergantung kualitas data keahlian sumber — data kosong menurunkan skor',v:'Uji sensitivitas: pergeseran ±10 poin tidak mengubah urutan jalur'},
+ disp:{j:'4.200 peran tergeser',s:'5.987 × 70,4% ≈ 4.215 → disepakati 4.200 bersama Direktur SDM',m:'Konversi jam kerja terotomasi menjadi peran; pemetaan peran ke orang 1:1 (rotasi rendah di keluarga ini)',k:'Sedang–Tinggi',x:'Pemetaan 1:1 adalah penyederhanaan; ±5% pekerja merangkap dua peran',v:'Diperhalus setiap gelombang verifikasi'},
+ split:{j:'Komposisi jalur 1.780 / 1.240 / 640 / 330 / 210',s:'3.112 profil terverifikasi (52% keluarga) + inferens untuk sisanya',m:'Penilaian kedekatan tiap profil terhadap pita tujuan; ambang masuk per jalur',k:'Sedang',x:'Komposisi bisa bergeser ±10% setelah verifikasi penuh — dinyatakan terbuka sejak awal',v:'Diperbarui otomatis setiap gelombang verifikasi'},
+ clock:{j:'Hitung mundur 18 bulan',s:'Kontrak 1,9 juta meter pintar (PR-2025-1187), triwulan IV 2025, oleh divisi Distribusi',m:'Jadwal penyedia: gelombang 1 — 600 ribu meter (bulan ke-6); gelombang 2 — 1,3 juta (bulan ke-12)',k:'Tinggi',x:'Di luar kendali SDM — pengadaan tidak menunggu rencana tenaga kerja',v:'Konfirmasi jadwal terakhir: 20 Feb 2026'},
+ sal:{j:'Taksiran gaji per rentang golongan',s:'Kerangka remunerasi BUMN (publik) — akses Oracle Payroll dibatasi kebijakan Kementerian',m:'Rentang per golongan dipakai sebagai taksiran; semua rupiah = estimasi ±20%',k:'Rendah–Sedang',x:'Tidak menangkap tunjangan khusus unit atau wilayah',v:'Bila Payroll dibuka: taksiran diganti angka sebenarnya — struktur keputusan tidak berubah'},
+ e1:{j:'Biaya transisi Rp 33 juta/orang',s:'Tolok ukur pelatihan internal 2024 (1.240 peserta)',m:'Program Rp 15 juta + dukungan transisi Rp 8 juta + masa penyesuaian produktivitas Rp 10 juta',k:'Sedang',x:'Masa penyesuaian paling tidak pasti — diukur ulang setiap gelombang',v:'Ujicoba 250 orang akan mengunci angka ini'},
+ e2:{j:'Rekrut-ganti Rp 45–60 juta/orang',s:'Tolok ukur industri utilitas — tenaga lapangan terampil',m:'Rekrutmen + orientasi + 6–9 bulan masa penyesuaian sampai produktif',k:'Sedang',x:'Pasokan tenaga terampil nasional sedang ketat — bisa lebih mahal',v:'Diperbarui setiap semester'},
+ e3:{j:'Biaya berdiam diri ≥ Rp 210 miliar (skenario)',s:'Skenario restrukturisasi terpaksa 2027 + risiko gangguan layanan',m:'Transisi mendadak tanpa persiapan kapabilitas: lembur dan penyedia, penalti layanan, kehilangan tenaga kunci',k:'Rendah — skenario',x:'Bukan proyeksi tunggal; rentang lebar',v:'Analisis sensitivitas di lampiran deck'},
+ ready:{j:'Estimasi kesiapan — rentang, bukan angka pasti',s:'Portofolio kapabilitas per orang dibanding kebutuhan pita tujuan',m:'Kecocokan per kapabilitas; rentang melebar bila ada bukti inferens atau kosong',k:'Bervariasi per orang',x:'Bukan alat seleksi — alat percakapan 1:1 dengan atasan dan karyawan',v:'Diverifikasi bersama karyawan sebelum keputusan apa pun'},
+ perf:{j:'Data kinerja sebelum 2023 tidak dipakai',s:'Sistem penilaian kinerja buatan sendiri per wilayah',m:'Skala penilaian berbeda di 6 unit; hanya 2023 ke atas yang dinormalisasi dan dipakai — dan hanya sebagai konteks',k:'—',x:'Sinyal historis jadi lebih tipis — pilihan sadar, bukan kelalaian',v:'Dokumen keputusan data, Hari ke-20'},
+ reg:{j:'Alokasi 4.200 per wilayah',s:'5.987 profil metering per wilayah × 70,4%',m:'Alokasi proporsional terhadap jumlah pelanggan setiap wilayah',k:'Sedang–Tinggi',x:'Asumsi pemasangan merata; wilayah padat pelanggan bisa lebih cepat',v:'Jadwal gelombang penyedia per wilayah — konfirmasi 20 Feb 2026'},
+ lvl:{j:'Zona per tingkat kapabilitas',s:'Pemetaan 5.987 profil metering ke G1–G7 + model eksposur 36 bulan keluarga lain',m:'Zona 18 bulan = keluarga Metering (4.200); zona pemantauan = keluarga dengan eksposur ≥25%: Layanan Pelanggan, Keuangan & Korporat, Aset & Rekayasa (16.470)',k:'Sedang',x:'Alokasi tingkat untuk zona pemantauan adalah estimasi dari distribusi jabatan — bukan pengukuran per orang',v:'Kalibrasi penuh Hari ke-90'},
+ mon:{j:'Pilot 250 · 198 pelatihan · 37 modul tuntas',s:'Platform ARUS + laporan HRBP wilayah, per 2 Mar 2026',m:'Hitungan langsung dari status peserta; "perlu tindakan" = tenggat terlewat atau menunggu konfirmasi lebih dari 3 hari',k:'Tinggi',x:'Status pelatihan diperbarui manual oleh HRBP — keterlambatan pelaporan 1–2 hari mungkin terjadi',v:'Dasbor HRBP diperbarui setiap pagi'},
+ dual:{j:'65 temuan pada 250 profil pilot',s:'Uji paralel ARUS × sistem lama (SAP, kompetensi lama, penilaian per wilayah), Hari 30–60',m:'Perbandingan otomatis tingkat, identitas, sertifikasi, riwayat pelatihan; ketidaksesuaian masuk antrian review bersama HRBP',k:'Tinggi (temuan) · Sedang (klasifikasi arah)',x:'250 profil = 4% populasi keluarga; angka bisa berubah saat perluasan',v:'Perluasan ke 2.000 profil — Hari ke-75'}
+};
+const evChip = k => `<button class="evlink" data-ev="${k}">basis</button>`;
+const typeChip = t => ({t:'<span class="ev ev-t">TERUKUR</span>',i:'<span class="ev ev-i">INFERENS</span>',d:'<span class="ev ev-d">DEKLARASI</span>',k:'<span class="ev ev-k">KOSONG</span>'}[t]);
+const stChip = s => ({t:'<span class="ev ev-t">TERVERIFIKASI</span>',p:'<span class="ev ev-i">SEBAGIAN</span>',d:'<span class="ev ev-d">DEKLARASI</span>',k:'<span class="ev ev-k">KOSONG</span>'}[s]);
+
+/* ---------------- DATA INTI ---------------- */
+const FAM=[
+ {id:'fm', nm:'Metering Lapangan & Operasi Manual', s:'Metering Lapangan', hc:5987, exp:70.4, adj:68, hot:1, la:'l'},
+ {id:'cs', nm:'Layanan Pelanggan', s:'Layanan Pelanggan', hc:8270, exp:42, adj:74, la:'r'},
+ {id:'fin',nm:'Keuangan & Layanan Korporat', s:'Keuangan & Korporat', hc:3890, exp:35, adj:58, la:'r'},
+ {id:'ast',nm:'Manajemen Aset & Rekayasa', s:'Aset & Rekayasa', hc:4310, exp:27, adj:71, la:'r'},
+ {id:'gen',nm:'Pembangkitan Tenaga Listrik', s:'Pembangkitan', hc:10780, exp:24, adj:55, la:'r'},
+ {id:'td', nm:'Transmisi & Distribusi', s:'Transmisi & Distribusi', hc:9140, exp:22, adj:66, la:'r'},
+ {id:'kom',nm:'Komersial, Perdagangan & Regulasi', s:'Komersial & Regulasi', hc:1980, exp:20, adj:62, la:'r'},
+ {id:'hcm',nm:'Sumber Daya Manusia', s:'SDM', hc:1040, exp:19, adj:57, la:'d'},
+ {id:'dig',nm:'Digital & Teknologi', s:'Digital & Teknologi', hc:1836, exp:18, adj:80, la:'r'},
+ {id:'leg',nm:'Legal & Kepatuhan', s:'Legal', hc:810, exp:16, adj:60, la:'d'},
+ {id:'hse',nm:'K3 & Keselamatan', s:'K3', hc:2760, exp:15, adj:64, la:'r'},
+ {id:'str',nm:'Strategi & Risiko Perusahaan', s:'Strategi & Risiko', hc:1340, exp:13, adj:66, la:'u'}
+];
+const famOf = id => FAM.find(f=>f.id===id);
+
+/* Wilayah: total 52.143 · metering 5.987 · jalur 18 bulan 4.200 · pilot verifikasi 250 */
+const REGIONS=[
+ {id:'sum',nm:'Sumatera',s:'Sumatera',hc:10300,met:1240,disp:870,pilot:58,note:'Konsentrasi terbesar — 21% dari 4.200. Gelombang pemasangan pertama dimulai dari wilayah ini; verifikasi dipercepat.'},
+ {id:'st', nm:'Sulawesi & Timur',s:'Sulawesi & Timur',hc:6200,met:1150,disp:807,pilot:47,note:'Rasio metering tertinggi terhadap populasi wilayah (19%) — prioritas kedua verifikasi.'},
+ {id:'jb', nm:'Jawa Barat',s:'Jawa Barat',hc:9800,met:1120,disp:786,pilot:52,note:'Kantong pita FM-02 (pembacaan manual) terbesar setelah Sumatera; gelombang praktik P1 dibuka di sini.'},
+ {id:'jtm',nm:'Jawa Timur & Bali',s:'Jawa Timur & Bali',hc:9200,met:1020,disp:716,pilot:41,note:'Masuk gelombang 2 pemasangan; jalur P2 (pemeliharaan jaringan) menyerap paling banyak di wilayah ini.'},
+ {id:'jtg',nm:'Jawa Tengah & DIY',s:'Jawa Tengah & DIY',hc:7400,met:780,disp:547,pilot:33,note:'Pilot verifikasi 33 profil selesai tanpa temuan besar.'},
+ {id:'kml',nm:'Kalimantan',s:'Kalimantan',hc:6100,met:640,disp:449,pilot:19,note:'Permintaan data jalur per anggota dari Serikat Pekerja wilayah ini — sudah dipenuhi (lihat Pemantauan Transisi).'},
+ {id:'kp', nm:'Kantor Pusat',s:'Kantor Pusat',hc:3143,met:37,disp:25,pilot:0,note:'Hanya 37 orang metering di kantor pusat — dampak minimal; fokus pada peran pemantauan.'}
+];
+const regOf = id => REGIONS.find(r=>r.id===id);
+
+/* Tingkat: total 52.143 · zona 18 bulan 4.200 · dipantau 16.470 */
+const GRADES=[
+ {g:'G1',d:'Pemula',tot:3100,z18:0,mon:900},
+ {g:'G2',d:'Terampil',tot:12400,z18:1470,mon:4600},
+ {g:'G3',d:'Mahir',tot:14800,z18:1510,mon:5200},
+ {g:'G4',d:'Mahir Senior',tot:11200,z18:840,mon:3400},
+ {g:'G5',d:'Penyelia',tot:6800,z18:260,mon:1600},
+ {g:'G6',d:'Pakar',tot:2600,z18:90,mon:600},
+ {g:'G7',d:'Pakar Utama',tot:1243,z18:30,mon:170}
+];
+
+const BANDS={
+ fm:{tot:7,show:[
+  {c:'FM-01',n:'Pengukuran & Kalibrasi Meter',lv:'G3–G6',hc:812,old:'Petugas Pemeriksa Meter · Meter Inspector · Teknisi Pengujian Meter'},
+  {c:'FM-02',n:'Operasi Pembacaan & Validasi',lv:'G2–G5',hc:2614,old:'47 nama jabatan, antara lain: Petugas Pembaca Meter · Meter Reader I–III · Senior Meter Reader · Petugas Pembacaan Pelanggan Industri'},
+  {c:'FM-03',n:'Inspeksi Aset & Peralatan Lapangan',lv:'G3–G6',hc:968,old:'Engineer Madya (Sulawesi) · Senior Technician II (Sumatera) · Meter Inspector Senior'},
+  {c:'FM-04',n:'Interaksi Pelanggan & Penagihan',lv:'G2–G5',hc:742,old:'Petugas Penagihan Lapangan · Field Collector · Petugas Layanan Meter Pelanggan'},
+  {c:'FM-05',n:'Pencatatan & Rekonsiliasi Manual',lv:'G2–G4',hc:431,old:'Operator Pencatatan Meter · Petugas Verifikasi Pembacaan · Operator Rekap Manual'},
+  {c:'FM-06',n:'Pemasangan & Penggantian Meter',lv:'G3–G5',hc:348,old:'Petugas Pasang & Cabut Meter · Installer Meter Madya · Connection Technician II'},
+  {c:'FM-07',n:'Pengelolaan Data Meter & Jaringan Pintar',lv:'G3–G6',hc:72,baru:1,old:'Pita baru — tumbuh dari 72 menjadi ±1.850 orang dalam 18 bulan'}]},
+ cs:{tot:8,show:[{c:'LP-01',n:'Layanan Pelanggan & Kanal',lv:'G2–G5'},{c:'LP-02',n:'Penanganan Keluhan & Piutang',lv:'G3–G6'},{c:'LP-03',n:'Komunitas & Hubungan Wilayah',lv:'G2–G5'},{c:'LP-04',n:'Analitik Pengalaman Pelanggan',lv:'G4–G6'}]},
+ fin:{tot:6,show:[{c:'FK-01',n:'Akuntansi & Pelaporan',lv:'G3–G6'},{c:'FK-02',n:'Anggaran & Pengendalian',lv:'G3–G6'},{c:'FK-03',n:'Pengadaan & Layanan Korporat',lv:'G2–G6'},{c:'FK-04',n:'Data & Otomasi Keuangan',lv:'G4–G6'}]},
+ ast:{tot:8,show:[{c:'MA-01',n:'Inspeksi & Uji Aset',lv:'G3–G6'},{c:'MA-02',n:'Perencanaan & Rekayasa Aset',lv:'G4–G7'},{c:'MA-03',n:'Inspeksi Lanjutan & Drone',lv:'G3–G6'},{c:'MA-04',n:'Manajemen Kontrak Teknis',lv:'G4–G6'}]},
+ gen:{tot:8,show:[{c:'GB-01',n:'Operasi Pembangkit',lv:'G2–G5'},{c:'GB-02',n:'Sistem Boiler–Turbin–Generator',lv:'G3–G6'},{c:'GB-03',n:'Instrumentasi & Kontrol',lv:'G3–G6'},{c:'GB-04',n:'Koordinasi Operasi Shift',lv:'G4–G6'}]},
+ td:{tot:8,show:[{c:'TD-01',n:'Operasi Jaringan & Penjadwal',lv:'G3–G6'},{c:'TD-02',n:'Pemeliharaan Saluran & Menara',lv:'G3–G6'},{c:'TD-03',n:'Penanganan Gangguan Lapangan',lv:'G2–G5'},{c:'TD-04',n:'Pengendalian & SCADA',lv:'G4–G7'}]},
+ kom:{tot:6,show:[{c:'KM-01',n:'Perdagangan & Portofolio',lv:'G5–G7'},{c:'KM-02',n:'Regulasi & Kepatuhan Pasar',lv:'G4–G6'},{c:'KM-03',n:'Analisis Komersial',lv:'G4–G6'}]},
+ hcm:{tot:5,show:[{c:'HC-01',n:'Kemitraan SDM',lv:'G4–G6'},{c:'HC-02',n:'Talenta & Kapabilitas',lv:'G4–G6'},{c:'HC-03',n:'Operasi SDM',lv:'G2–G5'}]},
+ dig:{tot:8,show:[{c:'DG-01',n:'Data & Analitik',lv:'G4–G7'},{c:'DG-02',n:'Rekayasa Perangkat Lunak',lv:'G4–G7'},{c:'DG-03',n:'Infrastruktur & Keamanan',lv:'G4–G7'},{c:'DG-04',n:'AI & Otomasi',lv:'G5–G7'}]},
+ leg:{tot:5,show:[{c:'LG-01',n:'Kontrak & Litigasi',lv:'G5–G7'},{c:'LG-02',n:'Kepatuhan & Tata Kelola',lv:'G4–G6'}]},
+ hse:{tot:5,show:[{c:'HS-01',n:'K3 Lapangan',lv:'G3–G6'},{c:'HS-02',n:'Audit & Sistem Manajemen K3',lv:'G4–G6'},{c:'HS-03',n:'Tanggap Darurat',lv:'G3–G6'}]},
+ str:{tot:4,show:[{c:'ST-01',n:'Risiko Perusahaan',lv:'G4–G7'},{c:'ST-02',n:'Strategi & Perencanaan Korporat',lv:'G5–G7'},{c:'ST-03',n:'Transformasi & Portofolio',lv:'G4–G6'}]}
+};
+
+const PATHS=[
+ {c:'P1',n:'Operasi Meter Pintar & Telemetri',cnt:1780,pct:42,tujuan:'FM-07 · Pengelolaan Data Meter & Jaringan Pintar',key:'Sedang–Tinggi',w:'9 minggu',
+  bukti:'Pemahaman rute dan jaringan pelanggan, perawatan meter fisik, dan interaksi pelanggan — 7 dari 9 kapabilitas pita tujuan sudah terpenuhi atau hampir.',
+  note:'Pita yang menggantikan pekerjaan lama justru membutuhkan orang yang paham lapangan. Teknologi yang menggeser, sekaligus membuka lowongan.'},
+ {c:'P2',n:'Pemeliharaan Jaringan & Aset',cnt:1240,pct:30,tujuan:'TD-02 · Pemeliharaan Saluran & Menara',key:'Sedang',w:'12 minggu',
+  bukti:'Keterampilan fisik lapangan, rekam keselamatan, keakraban dengan aset — masuk pita yang kebutuhannya tumbuh (perluasan jaringan, gelombang pensiun 2027).'},
+ {c:'P3',n:'Layanan Pelanggan & Komunitas',cnt:640,pct:15,tujuan:'LP-03 · Komunitas & Hubungan Wilayah',key:'Sedang–Tinggi',w:'6 minggu',
+  bukti:'Interaksi pelanggan dan penanganan tunggakan — dibutuhkan program layanan pelanggan dan edukasi meter pintar yang baru dimulai.'},
+ {c:'P4',n:'K3 Lapangan & Kepatuhan',cnt:330,pct:8,tujuan:'HS-01 · K3 Lapangan',key:'Sedang',w:'8 minggu',
+  bukti:'Rekam jejak keselamatan dan sertifikasi — kebutuhan inspeksi lapangan naik karena regulasi keselamatan instalasi 2026.'},
+ {c:'P5',n:'Program Penyiapan Mendalam',cnt:210,pct:5,tujuan:'Lintas bidang — fasilitas, armada, dukungan data',key:'Rendah–Sedang',w:'6–12 bulan',jujur:1,
+  bukti:'Celah kemampuan digital atau preferensi peran non-lapangan tidak bisa dijembatani dalam 9–12 minggu. Dirancang per orang.'}
+];
+const PN={P1:'Meter pintar',P2:'Jaringan & aset',P3:'Pelanggan & komunitas',P4:'K3 lapangan',P5:'Program mendalam'};
+const PW={P1:'9 minggu',P2:'12 minggu',P3:'6 minggu',P4:'8 minggu',P5:'6–12 bulan (program)'};
+const KUR={
+ P1:['Dasar jaringan & komunikasi meter pintar — 40 jam','Kualitas data & deteksi anomali — 24 jam','Platform data meter (praktik langsung) — 16 jam','Penyegaran K3 lapangan — 8 jam','Praktik terbimbing di wilayah — 40 jam'],
+ P2:['Perawatan saluran & menara — 48 jam','Sertifikasi bekerja di ketinggian — 24 jam','Pemeliharaan jaringan distribusi — 32 jam','Praktik terbimbing regu — 48 jam'],
+ P3:['Mediasi & komunikasi pelanggan — 24 jam','Sistem pelanggan generasi baru — 16 jam','Edukasi meter pintar untuk komunitas — 16 jam','Praktik terbimbing — 24 jam'],
+ P4:['Audit K3 lapangan — 32 jam','Regulasi keselamatan instalasi 2026 — 16 jam','Dokumentasi & pelaporan digital — 16 jam','Praktik terbimbing — 32 jam'],
+ P5:['Diagnosis per orang: wawancara + asesmen — minggu 1–2','Modul dasar digital / praktik sesuai profil','Rotasi terbimbing 3 bulan ke pita calon tujuan','Pencocokan pita akhir — bulan ke-6']
+};
+/* Jalur default per pita (bukti individual bisa mengubah urutan) */
+const BANDPATH={'FM-01':['P1','P2','P4'],'FM-02':['P1','P3','P2'],'FM-03':['P2','P1','P4'],'FM-04':['P3','P1','P4'],'FM-05':['P1','P3','P2'],'FM-06':['P2','P1','P4'],'FM-07':['P1']};
+
+const SISTEM=[
+ {n:'HRIS',v:'SAP SuccessFactors',st:'TERHUBUNG',cov:'100% populasi',note:'Data historis tidak lengkap, adopsi manajer rendah — dipakai sebagai sumber kebenaran struktural, bukan kinerja.'},
+ {n:'Kompetensi',v:'Sistem lama internal',st:'TERHUBUNG',cov:'100% · hanya baca',note:'Model 5 tingkat yang generik. Dipakai hanya sebagai arah, tidak sebagai bukti tingkat.'},
+ {n:'LMS',v:'Moodle',st:'TERHUBUNG',cov:'87% tertaut',note:'3.400+ nama kursus diseragamkan ke taksonomi 341 keahlian.'},
+ {n:'Kinerja',v:'Aplikasi per wilayah',st:'SEBAGIAN',cov:'2023 ke atas',note:'Skala penilaian berbeda di 6 unit wilayah. Sebelum 2023 tidak dipakai.'},
+ {n:'Payroll',v:'Oracle',st:'DIBATASI',cov:'—',note:'Dibatasi kebijakan tata kelola data Kementerian. Seluruh perhitungan ekonomi memakai taksiran rentang gaji per golongan.',lock:1}
+];
+
+/* Notifikasi — pemantauan transisi */
+const NOTIF=[
+ {tm:'2 jam lalu',to:'hrbp',cat:'TINDAKAN',msg:'6 peserta jalur P2 wilayah Sumatera melewati tenggat modul "Bekerja di ketinggian" — jadwalkan ulang atau eskalasi ke HRBP wilayah.',acts:[['resched','Jadwalkan ulang'],['eskalasi','Eskalasi']]},
+ {tm:'Hari ini · 08.12',to:'kar',cat:'TINDAKAN',msg:'Sesi verifikasi profil Anda (Rudi Hartono) terjadwalkan 10 Mar · 15 menit. Konfirmasi jadwal agar profil bisa terbit di hari yang sama.',acts:[['confirm','Konfirmasi jadwal']]},
+ {tm:'Kemarin',to:'hrbp',cat:'INFO',msg:'38 profil baru diterbitkan dari sesi verifikasi — 31 naik kelas bukti dari DEKLARASI ke TERUKUR.'},
+ {tm:'Kemarin',to:'kar',cat:'INFO',msg:'Siti Rahmawati menyelesaikan Modul 1 (dasar jaringan meter pintar) — lanjut ke modul kualitas data.'},
+ {tm:'2 hari lalu',to:'sp',cat:'INFO',msg:'Permintaan data jalur per anggota wilayah Kalimantan dipenuhi — 449 jalur beserta aturan verifikasi dikirim ke pengurus Serikat Pekerja.'},
+ {tm:'3 hari lalu',to:'hrbp',cat:'INFO',msg:'Uji paralel menemukan 9 ketidaksesuaian tingkat di wilayah Jawa Tengah — masuk antrian review bersama. <a class="evlink" href="#/paralel">Lihat uji paralel →</a>'},
+ {tm:'4 hari lalu',to:'hrbp',cat:'TONGGAK',msg:'Gelombang praktik terbimbing P1 wilayah Jawa Barat dibuka: 24 kursi, 20–27 Mar. 18 dari 24 kursi sudah terisi.'}
+];
+const TOCHIP={hrbp:'<span class="chip">HRBP</span>',kar:'<span class="chip">KARYAWAN</span>',sp:'<span class="chip">SERIKAT PEKERJA</span>'};
+
+/* Kemajuan pilot per jalur: peserta 250 · pelatihan 198 · modul 1 tuntas 37 */
+const PROG=[
+ ['P1','Operasi Meter Pintar & Telemetri',105,84,18,'6 · 18 Mar–15 Apr','Gelombang praktik dimulai 20 Mar — 24 kursi pertama'],
+ ['P2','Pemeliharaan Jaringan & Aset',75,59,11,'0','Menunggu jadwal sertifikasi ketinggian — 6 peserta lewat tenggat'],
+ ['P3','Layanan Pelanggan & Komunitas',38,33,8,'3 · 25 Mar','Jalur tercepat — 6 minggu'],
+ ['P4','K3 Lapangan & Kepatuhan',20,15,0,'0','Modul regulasi 2026 rilis 15 Mar'],
+ ['P5','Program Penyiapan Mendalam',12,7,0,'—','Diagnosis per orang berjalan — 5 dari 12 selesai']
+];
+
+/* Tonggak per orang (d/r/t/a = selesai/berjalan/tertunda/perlu tindakan) */
+const MILE={
+ 'EMP-48213':{chip:'P1 · Meter pintar',steps:[['d','Verifikasi profil','12 Feb'],['d','Diagnosis jalur','14 Feb'],['r','Modul 1 — dasar jaringan','60%'],['t','Praktik terbimbing','20 Mar'],['t','Sertifikasi internal','Apr']]},
+ 'EMP-47720':{chip:'P1 · Meter pintar',steps:[['d','Verifikasi profil','10 Feb'],['d','Diagnosis jalur','11 Feb'],['d','Modul 1','18 Feb'],['r','Modul 2 — anomali','80%'],['t','Sertifikasi','18 Mar']]},
+ 'EMP-46981':{chip:'P2 · Jaringan & aset',steps:[['d','Verifikasi profil','13 Feb'],['d','Diagnosis jalur','15 Feb'],['a','Modul 1 — menunggu jadwal ketinggian','tenggat 12 Mar'],['t','Praktik regu','Apr']]},
+ 'EMP-49842':{chip:'P3 · Pelanggan',steps:[['d','Verifikasi profil','11 Feb'],['d','Diagnosis jalur','12 Feb'],['d','Modul 1','20 Feb'],['r','Modul 2','75%'],['t','Praktik','16 Mar']]},
+ 'EMP-45118':{chip:'P1 · indikatif',steps:[['a','Verifikasi profil — menunggu konfirmasi','10 Mar'],['t','Diagnosis jalur','—'],['t','Penetapan jalur','—']]},
+ 'EMP-50117':{chip:'P5 · Program mendalam',steps:[['d','Verifikasi profil','16 Feb'],['r','Diagnosis program — wawancara','8 Mar'],['t','Modul dasar digital','Mar'],['t','Rotasi terbimbing','Q2']]}
+};
+
+/* ---------------- ORANG (58 profil contoh) ---------------- */
+const PEOPLE=[
+/* --- keluarga Metering (34) --- */
+{id:'EMP-48213',nm:'Budi Santoso',um:47,rg:'Jawa Barat',tl:'Petugas Pembaca Meter Senior',gol:'III/d',th:24,band:'FM-02',gr:'G4',st:'p',p:'P1',w:'9 minggu',r:[70,85],lms:'learner_9981',pn:'PN-7740',caps:[
+ c('Pembacaan & validasi meter — semua tipe','G4','t','Sertifikasi Metering Kelas B (2019) · kendali mutu pembacaan 96,8%'),
+ c('Pemahaman rute & wilayah pelanggan','G5','t','Data rute dan penugasan 11 tahun'),
+ c('Interaksi & negosiasi pelanggan','G3','i','Inferens: riwayat penyelesaian tagihan 2023–25'),
+ c('Keselamatan kerja lapangan','G4','t','Riwayat LMS: 6 modul K3 — terakhir Jan 2026'),
+ c('Kualitas & rekonsiliasi data meter','G3','d','Penilaian atasan 2025'),
+ c('Dasar jaringan & data meter pintar','—','k','Belum ada bukti — materi penyiapan 90 jam')]},
+{id:'EMP-47720',nm:'Siti Rahmawati',um:39,rg:'Jawa Tengah & DIY',tl:'Petugas Pemeriksa Meter',gol:'III/c',th:15,band:'FM-01',gr:'G4',st:'t',p:'P1',w:'7 minggu',r:[84,90],caps:[
+ c('Pengujian & kalibrasi meter','G4','t','Sertifikasi Kalibrasi (2023) · 1.240 unit per tahun'),
+ c('Analisis anomali pembacaan','G4','t','Riwayat LMS: analitik dasar (2024)'),
+ c('Keselamatan kerja lapangan','G4','t','Riwayat LMS: 8 modul K3'),
+ c('Dasar jaringan & data meter pintar','G2','t','Kursus mandiri daring 2025 — menunggu verifikasi'),
+ c('Dokumentasi digital inspeksi','G3','d','Penilaian atasan 2025')]},
+{id:'EMP-46981',nm:'Agus Wijaya',um:52,rg:'Sumatera',tl:'Senior Technician II (Metering)',gol:'IV/a',th:29,band:'FM-03',gr:'G4',st:'p',p:'P2',w:'12 minggu',r:[62,80],caps:[
+ c('Inspeksi aset & peralatan lapangan','G4','t','Riwayat pekerjaan 29 tahun · sertifikasi teknis (2021)'),
+ c('Bekerja di ketinggian','G3','d','Sertifikasi 2021 — perlu perpanjangan'),
+ c('Keselamatan kerja lapangan','G4','t','Riwayat LMS: 5 modul K3'),
+ c('Dasar digital (input & laporan)','—','k','Tidak ada bukti — masuk program penyiapan jalur P2')]},
+{id:'EMP-51230',nm:'Hendra Gunawan',um:44,rg:'Jawa Timur & Bali',tl:'Teknisi Meter Madya',gol:'III/d',th:19,band:'FM-06',gr:'G4',st:'t',p:'P4',w:'8 minggu',r:[78,88],caps:[
+ c('Pemasangan & pengujian meter','G4','t','Sertifikasi Pemasang (2022)'),
+ c('K3 lapangan','G4','t','Sertifikasi K3 Umum (2022) · tanpa insiden 6 tahun'),
+ c('Inspeksi visual aset','G3','i','Inferens: pola laporan kerja 2023–25'),
+ c('Dokumentasi & pelaporan digital','G2','d','Penilaian atasan 2025')]},
+{id:'EMP-45118',nm:'Rudi Hartono',um:49,rg:'Kalimantan',tl:'Petugas Pencatatan Meter Manual',gol:'III/c',th:21,band:'FM-05',gr:'G3',st:'k',p:'P1',caps:[
+ c('Pencatatan & rekonsiliasi data','G3','i','Inferens: sampel kendali mutu Q4-2025 — 99,2% akurat'),
+ c('Keselamatan kerja lapangan','G3','i','Inferens: tanpa temuan K3 dalam audit wilayah'),
+ c('Dasar digital','—','k','Tidak ada bukti di 3 sistem — sesi verifikasi 15 menit')]},
+{id:'EMP-49842',nm:'Dewi Lestari',um:35,rg:'Jawa Barat',tl:'Petugas Penagihan Lapangan',gol:'III/b',th:11,band:'FM-04',gr:'G3',st:'t',p:'P3',w:'6 minggu',r:[82,89],caps:[
+ c('Penanganan tunggakan & tagihan','G4','t','Riwayat penyelesaian: 92% tunggakan selesai < 30 hari'),
+ c('Komunikasi pelanggan','G4','t','Penilaian atasan 2025 + pemantauan kualitas interaksi'),
+ c('Mediasi sengketa ringan','G3','d','Penilaian atasan 2025'),
+ c('Sistem pelanggan (CRM)','G2','t','Riwayat LMS 2024')]},
+{id:'EMP-50117',nm:'Joko Prasetyo',um:55,rg:'Sumatera',tl:'Petugas Pasang & Cabut Meter',gol:'IV/a',th:31,band:'FM-06',gr:'G4',st:'d',p:'P5',caps:[
+ c('Penyambungan & pemasangan meter','G5','t','Sertifikasi senior (2005) · membimbing 23 teknisi muda'),
+ c('Relasi komunitas & kecamatan','G4','i','Inferens: riwayat koordinasi sambungan program'),
+ c('Keselamatan kerja lapangan','G4','t','Riwayat LMS: 7 modul K3'),
+ c('Dasar digital','—','k','Tidak ada bukti — diagnosis program P5')]},
+{id:'EMP-43906',nm:'Eko Nugroho',um:28,rg:'Jawa Tengah & DIY',tl:'Meter Reader II',gol:'II/d',th:4,band:'FM-02',gr:'G3',st:'t',p:'P1',w:'5 minggu',r:[88,94],caps:[
+ c('Pembacaan & validasi meter','G3','t','Kendali mutu pembacaan 98,9%'),
+ c('Analitik dasar (spreadsheet & SQL)','G3','t','Riwayat LMS: 4 kursus 2024–25'),
+ c('Dasar jaringan & data meter pintar','G2','t','Kursus mandiri daring 2025 — menunggu verifikasi'),
+ c('Keselamatan kerja lapangan','G3','t','Riwayat LMS: 4 modul K3')]},
+{id:'EMP-47655',nm:'Teguh Wibowo',um:41,rg:'Sulawesi & Timur',tl:'Engineer Madya (Metering)',gol:'III/d',th:17,band:'FM-03',gr:'G4',st:'p',p:'P2'},
+{id:'EMP-46201',nm:'Nur Aini',um:38,rg:'Jawa Barat',tl:'Petugas Pembaca Meter',gol:'III/b',th:13,band:'FM-02',gr:'G3',st:'p',p:'P1'},
+{id:'EMP-48933',nm:'Wahyu Setiawan',um:33,rg:'Jawa Timur & Bali',tl:'Meter Reader III',gol:'III/a',th:8,band:'FM-02',gr:'G3',st:'t',p:'P1'},
+{id:'EMP-45076',nm:'Yusuf Hidayat',um:45,rg:'Sulawesi & Timur',tl:'Petugas Pemeriksa Meter',gol:'III/c',th:20,band:'FM-01',gr:'G4',st:'p',p:'P1'},
+{id:'EMP-50412',nm:'Fitri Handayani',um:31,rg:'Kalimantan',tl:'Operator Verifikasi Meter',gol:'III/a',th:6,band:'FM-05',gr:'G3',st:'t',p:'P1'},
+{id:'EMP-46580',nm:'Dedi Kurniawan',um:50,rg:'Sumatera',tl:'Petugas Pembaca Meter Senior',gol:'III/d',th:26,band:'FM-02',gr:'G4',st:'d',p:'P3'},
+{id:'EMP-47391',nm:'Indra Maulana',um:37,rg:'Jawa Barat',tl:'Teknisi Pemasangan Meter',gol:'III/b',th:12,band:'FM-06',gr:'G3',st:'t',p:'P2'},
+{id:'EMP-45627',nm:'Rina Oktaviani',um:29,rg:'Jawa Tengah & DIY',tl:'Petugas Penagihan Lapangan',gol:'II/d',th:5,band:'FM-04',gr:'G2',st:'t',p:'P3'},
+{id:'EMP-49160',nm:'Bagus Pratama',um:43,rg:'Jawa Timur & Bali',tl:'Petugas Pencatatan & Rekonsiliasi',gol:'III/b',th:18,band:'FM-05',gr:'G3',st:'k',p:'P1'},
+{id:'EMP-51283',nm:'Ayu Wulandari',um:26,rg:'Jawa Barat',tl:'Meter Reader I',gol:'II/a',th:3,band:'FM-02',gr:'G2',st:'t',p:'P1'},
+{id:'EMP-44802',nm:'Doni Firmansyah',um:48,rg:'Sulawesi & Timur',tl:'Senior Technician I',gol:'III/d',th:23,band:'FM-03',gr:'G4',st:'p',p:'P2'},
+{id:'EMP-46874',nm:'Sri Wahyuni',um:42,rg:'Sumatera',tl:'Petugas Verifikasi Pembacaan',gol:'III/c',th:16,band:'FM-05',gr:'G3',st:'p',p:'P1'},
+{id:'EMP-48356',nm:'Fandi Saputra',um:36,rg:'Kalimantan',tl:'Petugas Pemeriksa Meter',gol:'III/b',th:10,band:'FM-01',gr:'G3',st:'t',p:'P1'},
+{id:'EMP-45911',nm:'Lilis Suryani',um:44,rg:'Jawa Tengah & DIY',tl:'Petugas Penagihan Lapangan Senior',gol:'III/d',th:19,band:'FM-04',gr:'G4',st:'d',p:'P3'},
+{id:'EMP-47428',nm:'Arif Budiman',um:39,rg:'Sulawesi & Timur',tl:'Teknisi Meter',gol:'III/b',th:14,band:'FM-06',gr:'G3',st:'p',p:'P2'},
+{id:'EMP-50736',nm:'Mega Silviana',um:27,rg:'Sumatera',tl:'Operator Pencatatan Meter',gol:'II/c',th:4,band:'FM-05',gr:'G2',st:'t',p:'P1'},
+{id:'EMP-44219',nm:'Slamet Riyadi',um:53,rg:'Jawa Barat',tl:'Petugas Pasang & Cabut Meter',gol:'IV/a',th:28,band:'FM-06',gr:'G4',st:'d',p:'P5'},
+{id:'EMP-48640',nm:'Yuni Astuti',um:34,rg:'Jawa Timur & Bali',tl:'Petugas Pembaca Meter',gol:'III/a',th:9,band:'FM-02',gr:'G3',st:'t',p:'P1'},
+{id:'EMP-45537',nm:'Hasan Basri',um:51,rg:'Kalimantan',tl:'Petugas Pembaca Meter Senior',gol:'III/d',th:25,band:'FM-02',gr:'G4',st:'k',p:'P1'},
+{id:'EMP-49702',nm:'Novi Rahmawati',um:30,rg:'Jawa Barat',tl:'Petugas Layanan Meter Pelanggan',gol:'III/a',th:6,band:'FM-04',gr:'G2',st:'t',p:'P3'},
+{id:'EMP-47065',nm:'Bambang Susilo',um:46,rg:'Sumatera',tl:'Petugas Pemeriksa Meter Senior',gol:'IV/a',th:22,band:'FM-01',gr:'G5',st:'p',p:'P1'},
+{id:'EMP-51044',nm:'Kartika Dewi',um:32,rg:'Sulawesi & Timur',tl:'Analis Pembacaan Meter',gol:'III/a',th:7,band:'FM-05',gr:'G3',st:'t',p:'P1'},
+{id:'EMP-46387',nm:'Rizal Effendi',um:41,rg:'Jawa Timur & Bali',tl:'Teknisi Meter Madya',gol:'III/c',th:15,band:'FM-06',gr:'G4',st:'p',p:'P4'},
+{id:'EMP-49071',nm:'Puji Lestari',um:28,rg:'Jawa Tengah & DIY',tl:'Petugas Penagihan',gol:'II/c',th:4,band:'FM-04',gr:'G2',st:'t',p:'P3'},
+{id:'EMP-48026',nm:'Ahmad Fauzi',um:38,rg:'Kalimantan',tl:'Petugas Pemasangan Meter',gol:'III/b',th:13,band:'FM-06',gr:'G3',st:'p',p:'P2'},
+{id:'EMP-44699',nm:'Wawan Setiawan',um:56,rg:'Sulawesi & Timur',tl:'Kepala Regu Pembacaan',gol:'IV/b',th:32,band:'FM-02',gr:'G5',st:'d',p:'P5'},
+/* --- keluarga lain (24) --- */
+{id:'EMP-21345',nm:'Fajar Ramadhan',um:31,rg:'Kantor Pusat',tl:'Analis Data',gol:'III/d',th:6,fam:'dig',band:'DG-01',gr:'G5',st:'t',caps:[
+ c('Rekayasa data & SQL','G5','t','Portofolio proyek + tinjauan teknis'),
+ c('Pembelajaran mesin — terapan','G4','t','Riwayat proyek prediksi beban 2025'),
+ c('Domain energi & operasi','G4','i','Inferens: 3 proyek lintas divisi'),
+ c('Pengembangan agen AI','G2','t','Kursus internal 2026 — kapabilitas baru di portofolio')]},
+{id:'EMP-18770',nm:'Maya Puspita',um:42,rg:'Kantor Pusat',tl:'HR Business Partner',gol:'IV/a',th:15,fam:'hcm',band:'HC-01',gr:'G5',st:'t',caps:[
+ c('Kemitraan SDM','G5','d','Penilaian atasan 2025'),
+ c('Analitik SDM','G4','t','Riwayat LMS + proyek dasbor SDM 2025'),
+ c('Desain program talenta','G4','d','Penilaian atasan 2025')]},
+{id:'EMP-24918',nm:'Retno Palupi',um:38,rg:'Kantor Pusat',tl:'Analis Piutang Pelanggan',gol:'III/c',th:12,fam:'cs',band:'LP-02',gr:'G4',st:'t'},
+{id:'EMP-32106',nm:'Galih Prakoso',um:45,rg:'Jawa Timur & Bali',tl:'Operator Turbin Senior',gol:'III/d',th:20,fam:'gen',band:'GB-02',gr:'G5',st:'p'},
+{id:'EMP-22750',nm:'Sinta Bella',um:29,rg:'Kantor Pusat',tl:'Customer Service Officer',gol:'III/a',th:4,fam:'cs',band:'LP-01',gr:'G3',st:'t'},
+{id:'EMP-35112',nm:'Imam Syafii',um:50,rg:'Sumatera',tl:'Pemimpin Regu Penanganan Gangguan',gol:'IV/a',th:27,fam:'td',band:'TD-03',gr:'G5',st:'d'},
+{id:'EMP-20398',nm:'Nanda Prameswari',um:27,rg:'Kantor Pusat',tl:'Machine Learning Engineer',gol:'III/b',th:3,fam:'dig',band:'DG-04',gr:'G6',st:'t'},
+{id:'EMP-33471',nm:'Sugeng Raharjo',um:54,rg:'Jawa Tengah & DIY',tl:'Operator Boiler',gol:'III/c',th:30,fam:'gen',band:'GB-02',gr:'G4',st:'k'},
+{id:'EMP-36208',nm:'Dewangga Putra',um:33,rg:'Kalimantan',tl:'Teknisi Inspeksi Drone',gol:'III/b',th:7,fam:'ast',band:'MA-03',gr:'G4',st:'t'},
+{id:'EMP-19454',nm:'Ratna Sari',um:46,rg:'Kantor Pusat',tl:'Staf Akuntansi',gol:'III/d',th:21,fam:'fin',band:'FK-01',gr:'G4',st:'p'},
+{id:'EMP-34780',nm:'Yosep Manafe',um:41,rg:'Sulawesi & Timur',tl:'Lineman',gol:'III/c',th:16,fam:'td',band:'TD-02',gr:'G4',st:'t'},
+{id:'EMP-17226',nm:'Prisca Halim',um:36,rg:'Kantor Pusat',tl:'Legal Counsel',gol:'IV/a',th:10,fam:'leg',band:'LG-01',gr:'G5',st:'t'},
+{id:'EMP-33904',nm:'Darwin Pangaribuan',um:48,rg:'Sumatera',tl:'Teknisi Pemeliharaan Saluran',gol:'III/d',th:24,fam:'td',band:'TD-02',gr:'G4',st:'p'},
+{id:'EMP-21587',nm:'Wulan Kirana',um:30,rg:'Kantor Pusat',tl:'Product Owner Aplikasi Internal',gol:'III/c',th:5,fam:'dig',band:'DG-02',gr:'G5',st:'t'},
+{id:'EMP-30549',nm:'Surya Anto',um:43,rg:'Jawa Tengah & DIY',tl:'Petugas K3 Lapangan',gol:'III/c',th:17,fam:'hse',band:'HS-01',gr:'G3',st:'t'},
+{id:'EMP-19903',nm:'Melati Anggraini',um:39,rg:'Kantor Pusat',tl:'Analis Anggaran',gol:'III/c',th:13,fam:'fin',band:'FK-02',gr:'G4',st:'t'},
+{id:'EMP-18140',nm:'Zulfikar Akbar',um:37,rg:'Kantor Pusat',tl:'Analis Regulasi',gol:'III/c',th:11,fam:'kom',band:'KM-02',gr:'G4',st:'t'},
+{id:'EMP-22608',nm:'Tria Handayani',um:44,rg:'Kantor Pusat',tl:'Auditor K3',gol:'IV/a',th:18,fam:'hse',band:'HS-02',gr:'G5',st:'p'},
+{id:'EMP-31877',nm:'Eka Prasetya',um:35,rg:'Jawa Timur & Bali',tl:'Operator SCADA Junior',gol:'III/b',th:8,fam:'td',band:'TD-04',gr:'G3',st:'t'},
+{id:'EMP-16522',nm:'Bening Suci',um:26,rg:'Kantor Pusat',tl:'Analis Risiko Perusahaan',gol:'III/a',th:3,fam:'str',band:'ST-01',gr:'G4',st:'t'},
+{id:'EMP-34219',nm:'Hengky Simatupang',um:52,rg:'Sumatera',tl:'Pengawas Shift PLTU',gol:'IV/b',th:28,fam:'gen',band:'GB-04',gr:'G5',st:'d'},
+{id:'EMP-20961',nm:'Laila Ramadhani',um:28,rg:'Kantor Pusat',tl:'Staf Pengembangan SDM',gol:'III/a',th:4,fam:'hcm',band:'HC-02',gr:'G3',st:'t'},
+{id:'EMP-17885',nm:'Gunawan Wibisana',um:47,rg:'Kantor Pusat',tl:'Insinyur Perencanaan Aset',gol:'IV/a',th:22,fam:'ast',band:'MA-02',gr:'G5',st:'p'},
+{id:'EMP-22134',nm:'Olivia Tanaya',um:34,rg:'Kantor Pusat',tl:'Scrum Master',gol:'III/c',th:7,fam:'dig',band:'DG-02',gr:'G5',st:'t'}
+];
+PEOPLE.forEach(p=>{ if(!p.fam) p.fam='fm'; });
+
+/* kapabilitas standar untuk profil tanpa detail (tetap deterministik) */
+const CAPT={
+ 'FM-01':[['Pengujian & kalibrasi meter','t','Sertifikasi / riwayat LMS'],['Keselamatan kerja lapangan','t','Riwayat LMS K3'],['Akurasi pengukuran','i','Inferens: kendali mutu pengujian 2024–25']],
+ 'FM-02':[['Pembacaan & validasi meter','t','Riwayat LMS + kendali mutu pembacaan'],['Keselamatan kerja lapangan','t','Riwayat LMS K3'],['Interaksi pelanggan','i','Inferens: riwayat penyelesaian tagihan']],
+ 'FM-03':[['Inspeksi aset & peralatan lapangan','t','Sertifikasi teknis'],['Perakitan & perbaikan peralatan','t','Riwayat pekerjaan'],['Dokumentasi inspeksi','i','Inferens: pola laporan']],
+ 'FM-04':[['Penanganan tunggakan & tagihan','t','Riwayat penyelesaian'],['Komunikasi pelanggan','i','Inferens: data interaksi'],['Mediasi sengketa ringan','d','Penilaian atasan 2025']],
+ 'FM-05':[['Pencatatan & rekonsiliasi data','t','Kendali mutu pembacaan 2024–25'],['Ketelitian data','i','Inferens: sampel kendali mutu'],['Dasar digital (input sistem)','d','Penilaian atasan 2025']],
+ 'FM-06':[['Pemasangan & penggantian meter','t','Sertifikasi / riwayat pekerjaan'],['Keselamatan kerja lapangan','t','Riwayat LMS K3'],['Penyambungan baru','i','Inferens: perintah kerja']]};
+const NFC={
+ gen:[['Operasi pembangkit (area spesifik)','t','Sertifikasi kompetensi teknis'],['Keselamatan proses','t','Riwayat LMS']],
+ td:[['Pemeliharaan jaringan / saluran','t','Sertifikasi teknis'],['Keselamatan kerja di ketinggian','t','Sertifikasi K3 khusus']],
+ cs:[['Layanan pelanggan','t','Riwayat pemantauan kualitas layanan'],['Sistem pelanggan','t','Riwayat LMS']],
+ ast:[['Inspeksi & pengujian aset','t','Sertifikasi teknis'],['Analisis kondisi aset','i','Inferens: laporan inspeksi']],
+ fin:[['Akuntansi / anggaran','t','Sertifikasi profesi'],['Sistem keuangan','t','Riwayat LMS']],
+ dig:[['Rekayasa data / perangkat lunak','t','Portofolio + riwayat proyek'],['Domain energi','i','Inferens: riwayat proyek']],
+ hse:[['K3 lapangan / audit','t','Sertifikasi K3'],['Regulasi keselamatan','t','Riwayat LMS']],
+ hcm:[['Kemitraan SDM','d','Penilaian atasan'],['Analitik SDM','t','Riwayat LMS']],
+ leg:[['Kontrak & litigasi','t','Rekam jejak kasus'],['Regulasi energi','t','Sertifikasi / riwayat']],
+ kom:[['Analisis regulasi & pasar','t','Riwayat publikasi / laporan'],['Domain perdagangan','i','Inferens: riwayat']],
+ str:[['Risiko perusahaan','t','Sertifikasi / daftar risiko'],['Perencanaan korporat','d','Penilaian atasan']]};
+function stdCaps(p){
+ const base = p.fam==='fm' ? CAPT[p.band] : (NFC[p.fam]||[['Kapabilitas inti keluarga','t','Riwayat sistem']]);
+ return base.map(b=>{
+   let t=b[1], src=b[2];
+   if(p.st==='d'){ t='d'; src='Penilaian atasan 2025'; }
+   if(p.st==='k'){ t='k'; src='Tidak ada bukti di 3 sistem — perlu verifikasi'; }
+   return c(b[0], p.gr, t, src); });
+}
+const capsOf = p => p.caps ? p.caps : stdCaps(p);
+function readyOf(p){ if(p.r) return p.r; if(p.fam!=='fm'||p.st==='k') return null;
+  return {t:[80,88],p:[68,84],d:[62,78]}[p.st]||null; }
+const lmsOf = p => p.lms || ('learner_'+(3000+(parseInt(p.id.slice(4))%6000)));
+const pnOf  = p => p.pn  || ('PN-'+(7000+(parseInt(p.id.slice(4))%900)));
+const bandName = code => { for(const k in BANDS){ const b=BANDS[k].show.find(x=>x.c===code); if(b) return b.n; } return code; };
+const pathOf = code => PATHS.find(x=>x.c===code);
+
+/* Tiga jalur terdekat per orang (deterministik) */
+function pathsFor(p){
+ if(p.fam!=='fm') return null;
+ const base=BANDPATH[p.band]||['P1'];
+ let order = (p.p && p.p!=='P5') ? [p.p, ...base.filter(x=>x!==p.p)] : base;
+ order=order.slice(0,3);
+ const r=readyOf(p), p5=p.p==='P5';
+ return order.map((code,i)=>{
+   let rr=null;
+   if(r&&!p5){ rr = i===0? r : [Math.max(35,r[0]-10*i), Math.max(45,r[1]-8*i)]; }
+   else if(r&&p5){ rr = [Math.max(35,r[0]-22-8*i), Math.max(45,r[1]-14-8*i)]; }
+   return {code, r:rr, primary:i===0, p5};
+ });
+}
+/* Uji paralel: level sistem lama (basis masa kerja) vs ARUS (basis bukti) */
+const g5map={G1:1,G2:2,G3:3,G4:4,G5:4,G6:5,G7:5};
+function dualOf(p){
+ const lg = p.th>=25?5 : p.th>=15?4 : p.th>=7?3 : 2;
+ const g5 = g5map[p.gr]||3;
+ if(p.st==='k') return {lg,g5,v:'k'};
+ if(lg===g5) return {lg,g5,v:'t'};
+ return lg<g5 ? {lg,g5,v:'i'} : {lg,g5,v:'d'};
+}
+const dualChip = v => ({t:'<span class="ev ev-t">SELARAS</span>',i:'<span class="ev ev-i">SISTEM LAMA LEBIH RENDAH</span>',d:'<span class="ev ev-d">SISTEM LAMA LEBIH TINGGI</span>',k:'<span class="ev ev-k">BELUM DIBANDINGKAN</span>'}[v]);
+
+/* ================================================================
+   TAMPILAN 1 — RINGKASAN
+================================================================ */
+function vRingkasan(){
+ const sorted=[...FAM].sort((a,b)=>b.exp-a.exp);
+ const bars=sorted.map(f=>`
+  <a class="brow" href="#/eksposur" data-fam="${f.id}" data-tip="${f.nm}::~${fID(f.hc)} orang::~Eksposur ${pct(f.exp)} · ${f.hot?'18':'36'} bulan lagi::~Keyakinan: ${f.hot?'tinggi (±7 poin)':'sedang (±12 poin)'}::~Klik untuk detail & basis">
+    <span class="blab">${f.s}</span>
+    <span class="btrack"><span class="bbar${f.hot?' hot':''}" style="width:${f.exp}%"></span></span>
+    <span class="bval">${pct(f.exp)}${f.hot?'<span class="btag">18 bulan</span>':''}</span>
+  </a>`).join('');
+ const sys=SISTEM.map(s=>`
+  <div class="sysrow" style="grid-template-columns:96px 1fr">
+    <div><div style="font-size:13px;font-weight:600">${s.n}</div><div class="vn">${s.v}</div></div>
+    <div><span class="chip" ${s.lock?'style="border-style:dashed"':''}>${s.st}</span> <span class="chip">${s.cov}</span>
+    <div class="nt" style="margin-top:5px">${s.note}</div></div>
+  </div>`).join('');
+ return `
+ <h1 class="vt">Ringkasan</h1>
+ <div class="vsub">Potret tenaga kerja dalam arsitektur kapabilitas · data per 28 Feb 2026 · pratinjau Hari ke-60</div>
+ <div class="note" style="margin-top:8px">Alur yang disarankan: Ringkasan → Peta Eksposur → Penempatan Ulang (momen utama) → Pemantauan Transisi → Uji Paralel → buka satu orang.</div>
+
+ <div class="kpis">
+  <div class="kpi"><div class="n" data-cnt="52143" data-fmt="int">0</div><div class="l">Karyawan terpetakan<span>97,2% identitas lintas sistem tersatukan — ${evChip('hc')} · ${evChip('join')}</span></div></div>
+  <div class="kpi"><div class="n"><em>1.806</em> → 12 · 78</div><div class="l">Nama jabatan → keluarga jabatan &amp; pita kapabilitas<span>plus 341 keahlian dalam taksonomi — ${evChip('titles')}</span></div></div>
+  <div class="kpi hot"><div class="n"><span data-cnt="70" data-fmt="raw" data-sfx="%">0%</span> <em style="font-size:20px;color:var(--dim)">· 18 bulan</em></div><div class="l">Pekerjaan keluarga Metering yang terotomasi — oleh pengadaan yang sudah berjalan<span>${evChip('exp')} · ${evChip('clock')}</span></div></div>
+  <div class="kpi"><div class="n" data-cnt="5987" data-fmt="int">0</div><div class="l">Orang di keluarga paling terekspos — 11,5% tenaga kerja<span>usia median 46 tahun · masa kerja 18 tahun</span></div></div>
+  <div class="kpi"><div class="n" data-cnt="4200" data-fmt="int">0</div><div class="l">Jalur transisi terpetakan · 0 PHK<span>setiap jalur punya bukti kecocokan dan perkiraan waktu — ${evChip('split')}</span></div></div>
+  <div class="kpi"><div class="n">45,1%</div><div class="l">Data keahlian kosong — tidak disembunyikan<span>inferens + program verifikasi; profil lemah tampil sebagai rentang — ${evChip('blank')}</span></div></div>
+ </div>
+
+ <div class="callout" style="margin-top:24px">
+  <b>Temuan Hari ke-30 yang mengubah arah penugasan.</b> Divisi Distribusi — di luar SDM — sudah menandatangani kontrak <b>1,9 juta meter pintar</b> (PR-2025-1187, triwulan IV 2025). Jadwal penyedia: 600 ribu terpasang di bulan ke-6, 1,3 juta di bulan ke-12. Hitung mundur 18 bulan bagi keluarga Metering bukan proyeksi teknologi — itu pengadaan yang sudah berjalan. ${evChip('clock')}
+  <div style="margin-top:12px"><a class="lnk evlink" href="#/redeployment">Lihat konsekuensinya →</a></div>
+ </div>
+
+ <div class="sec">Eksposur otomasi per keluarga jabatan — jangka 36 bulan (Metering: 18 bulan)</div>
+ <div class="grid2">
+  <div class="card"><div class="bchart">${bars}</div>
+   <div class="note" style="margin-top:14px">Semua angka eksposur adalah hasil model (INFERENS). Metering ±7 poin karena dikoreksi dengan kontrak pengadaan; lainnya ±12 poin. Potret per wilayah dan per tingkat ada di Peta Eksposur. ${evChip('exp')} ${evChip('expo')}</div></div>
+  <div class="card"><h4 style="font-size:10.5px;letter-spacing:.14em;color:var(--faint);margin-bottom:4px">SUMBER DATA — STATUS</h4>${sys}
+   <div class="note" style="margin-top:12px">Desain berjalan di atas sistem yang ada — tanpa migrasi, tanpa menunggu izin Payroll. <a class="evlink" href="#/paralel">Status uji paralel →</a></div></div>
+ </div>
+
+ <div class="sec">Menunggu keputusan Direktur</div>
+ <div class="trio">
+  <div class="tcard"><h5>UJICOBA VERIFIKASI</h5><p>Perluasan 250 → 2.000 profil — dijalankan bersama SDM wilayah dan Serikat Pekerja, bukan dikte dari pusat. Status terkini ada di <a class="evlink" href="#/pemantauan">Pemantauan Transisi</a>.</p><button class="btn btn-g" data-act="pilot" style="margin-top:12px">Setujui perluasan</button></div>
+  <div class="tcard"><h5>DESAIN PROGRAM P1–P4</h5><p>Kurikulum jalur transisi: 80–152 jam per jalur, sertifikasi internal, aturan kelulusan.</p><button class="btn btn-g" data-act="kur" style="margin-top:12px">Lihat kurikulum</button></div>
+  <div class="tcard"><h5>SESI SERIKAT PEKERJA</h5><p>Persiapan negosiasi Hari 60–75: bawa data jalur per orang dan aturan verifikasi bersama — bukan angka agregat.</p><button class="btn btn-g" data-act="mat" style="margin-top:12px">Materi sesi</button></div>
+ </div>
+ ${foot()}`;
+}
+
+/* ================================================================
+   TAMPILAN 2 — PETA EKSPOSUR (3 dimensi)
+================================================================ */
+const X=e=>70+(e-5)*650/75, Y=a=>410-(a-45)*350/40;
+function quadSVG(){
+ let grid='';
+ [25,50,75].forEach(v=>grid+=`<line x1="${X(v)}" y1="50" x2="${X(v)}" y2="410" stroke="rgba(240,237,232,.05)"/>`);
+ [50,60,70,80].forEach(v=>grid+=`<line x1="70" y1="${Y(v)}" x2="730" y2="${Y(v)}" stroke="rgba(240,237,232,.05)"/>`);
+ [25,50,75].forEach(v=>grid+=`<text x="${X(v)}" y="428" fill="#5F7086" font-size="9.5" text-anchor="middle">${v}%</text>`);
+ [50,60,70,80].forEach(v=>grid+=`<text x="62" y="${Y(v)+3}" fill="#5F7086" font-size="9.5" text-anchor="end">${v}</text>`);
+ const pts=FAM.map(f=>{
+  const r=6+Math.sqrt(f.hc)/6, cx=X(f.exp), cy=Y(f.adj);
+  let lx=cx+r+7, ly=cy+3.5, anch='start';
+  if(f.la==='l'){ lx=cx-r-8; anch='end'; }
+  if(f.la==='d'){ ly=cy+r+13; lx=cx; anch='middle'; }
+  if(f.la==='u'){ ly=cy-r-7; lx=cx; anch='middle'; }
+  return `<g data-fam="${f.id}" style="cursor:pointer" data-tip="${f.nm}::~${fID(f.hc)} orang · kedekatan peran ${f.adj}/100::~Eksposur ${pct(f.exp)} · ${f.hot?'18':'36'} bulan lagi::~Klik untuk detail">
+   <circle cx="${cx}" cy="${cy}" r="${r}" fill="${f.hot?'rgba(232,164,53,.25)':'rgba(110,140,174,.22)'}" stroke="${f.hot?'#E8A435':'#6E8CAE'}" stroke-width="${f.hot?2:1.3}"/>
+   <text x="${lx}" y="${ly}" fill="${f.hot?'#E8A435':'#8A9BB0'}" font-size="10.5" text-anchor="${anch}" ${f.hot?'font-weight="600"':''}>${f.s} · ${fID(f.hc)}</text></g>`; }).join('');
+ return `<svg viewBox="0 0 760 450" style="width:100%;min-width:640px;height:auto">
+  ${grid}
+  <line x1="${X(40)}" y1="50" x2="${X(40)}" y2="410" stroke="rgba(240,237,232,.2)" stroke-dasharray="4 5"/>
+  <line x1="70" y1="${Y(60)}" x2="730" y2="${Y(60)}" stroke="rgba(240,237,232,.2)" stroke-dasharray="4 5"/>
+  <text x="76" y="66" fill="#5F7086" font-size="9.5" letter-spacing="1.5">AUGMENTASI &amp; PERTUMBUHAN</text>
+  <text x="724" y="66" fill="#5F7086" font-size="9.5" letter-spacing="1.5" text-anchor="end">TRANSISI TERKELOLA</text>
+  <text x="724" y="402" fill="#5F7086" font-size="9.5" letter-spacing="1.5" text-anchor="end">PRIORITAS INTERVENSI</text>
+  <text x="76" y="402" fill="#5F7086" font-size="9.5" letter-spacing="1.5">STABIL — DIKELOLA BERTAHAP</text>
+  <text x="400" y="446" fill="#8A9BB0" font-size="10.5" text-anchor="middle">Eksposur otomasi (% jam kerja) →</text>
+  <text transform="rotate(-90)" x="-230" y="20" fill="#8A9BB0" font-size="10.5">Potensi pindah peran →</text>
+  ${pts}</svg>`;
+}
+function famPanel(){
+ const f=famOf(S.famSel), fm=f.id==='fm';
+ const nSample=PEOPLE.filter(p=>p.fam===f.id).length;
+ const bands=(BANDS[f.id].show.slice(0,3)).map(b=>`<div class="bandold" style="padding:5px 0"><b style="color:var(--ink);font-weight:500">${b.c}</b> — ${b.n}</div>`).join('');
+ return `<div class="card fdp">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap">
+   <div style="font-size:16px;font-weight:600;${fm?'color:var(--amber)':''}">${f.nm}</div>
+   ${fm?'<span class="chip" style="border-color:rgba(232,164,53,.5);color:var(--amber)">FOKUS 90 HARI</span>':''}
+  </div>
+  <div class="row" style="margin-top:16px">
+   <div class="cell"><div class="n">${fID(f.hc)}</div><div class="l">ORANG · ${Math.round(f.hc/52143*100)}% TENAGA KERJA</div></div>
+   <div class="cell"><div class="n" ${fm?'style="color:var(--amber)"':''}>${pct(f.exp)}</div><div class="l">EKSPOSUR · ${fm?'18':'36'} BULAN LAGI</div></div>
+   <div class="cell"><div class="n">${f.adj}</div><div class="l">KEDEKATAN PERAN / 100 — ${evChip('adj')}</div></div>
+   <div class="cell"><div class="n">±${fm?'7':'12'}</div><div class="l">POIN KEYAKINAN — ${fm?evChip('exp'):evChip('expo')}</div></div>
+  </div>
+  ${fm?`<div class="note" style="margin-bottom:14px"><b style="color:var(--ink)">Konsentrasi risiko:</b> pita FM-02 Operasi Pembacaan (2.614 orang) menyumbang ±2.100 dari 4.200; pita FM-05 paling terekspos (91%) tetapi kecil (431 orang). Sisanya tersebar di 4 pita. <a class="evlink" href="#/redeployment">Lihat jawabannya →</a></div>`:
+  `<div class="note" style="margin-bottom:14px">Belum masuk fokus 90 hari — dipantau. Kalibrasi penuh pada Hari ke-90. Keputusan sengaja tidak menumpuk di dua tempat sekaligus.</div>`}
+  <div style="font-size:10.5px;letter-spacing:.14em;color:var(--faint);margin-bottom:4px">PITA UTAMA</div>${bands}
+  <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
+   <a class="btn btn-g" href="#/arsitektur" data-archfam="${f.id}">Struktur pita lengkap</a>
+   ${nSample?`<a class="btn btn-g" href="#/direktori" data-flink="${f.id}">${nSample} profil contoh</a>`:''}
+  </div></div>`;
+}
+function regionPanel(){
+ const r=regOf(S.regSel);
+ const nSample=PEOPLE.filter(p=>p.rg===r.nm).length;
+ return `<div class="card fdp" id="regpanel">
+  <div style="font-size:16px;font-weight:600">${r.nm}</div>
+  <div class="row" style="margin-top:16px">
+   <div class="cell"><div class="n">${fID(r.hc)}</div><div class="l">KARYAWAN · ${Math.round(r.hc/52143*100)}% TOTAL</div></div>
+   <div class="cell"><div class="n">${fID(r.met)}</div><div class="l">KELUARGA METERING</div></div>
+   <div class="cell"><div class="n" style="color:var(--amber)">${fID(r.disp)}</div><div class="l">JALUR 18 BULAN · ${Math.round(r.disp/4200*100)}% DARI 4.200 — ${evChip('reg')}</div></div>
+   <div class="cell"><div class="n">${r.pilot}</div><div class="l">VERIFIKASI CEPAT SELESAI</div></div>
+  </div>
+  <div class="note">${r.note}</div>
+  ${nSample?`<a class="btn btn-g" href="#/direktori" data-dq="${r.nm}" style="margin-top:14px">${nSample} profil contoh</a>`:''}
+ </div>`;
+}
+function vEksposur(){
+ const tab=S.expTab;
+ const tabs=`<div class="famtabs">
+  <button data-exptab="fam" class="${tab==='fam'?'on':''}">Keluarga Jabatan</button>
+  <button data-exptab="reg" class="${tab==='reg'?'on':''}">Per Wilayah</button>
+  <button data-exptab="lvl" class="${tab==='lvl'?'on':''}">Per Tingkat Kapabilitas</button></div>`;
+ let body='';
+ if(tab==='fam'){
+  body=`<div class="sec">Kuadran: eksposur × potensi pindah peran</div>
+  <div class="card qwrap">${quadSVG()}</div>
+  <div class="note" style="margin-top:12px">Cara membaca: posisi = hasil model (INFERENS — ${evChip('adj')}); ukuran lingkaran = jumlah orang; garis putus-putus = ambang 40% eksposur dan 60 kedekatan. Klik keluarga untuk detail. Metering berada di kuadran kanan atas: paling terekspos, tetapi paling mudah dipindahkan — karena itu penempatan ulangnya bisa dipercaya.</div>
+  ${famPanel()}`;
+ }
+ if(tab==='reg'){
+  const rows=[...REGIONS].sort((a,b)=>b.disp-a.disp).map(r=>`
+   <button class="zrow ${S.regSel===r.id?'on':''}" data-reg="${r.id}">
+    <span class="zl"><b>${r.s}</b><span>${fID(r.hc)} karyawan</span></span>
+    <span class="ztrack"><span class="zbar" style="width:${(r.disp/870*100).toFixed(1)}%"></span></span>
+    <span class="zv"><b>${fID(r.disp)}</b> jalur · ${Math.round(r.disp/4200*100)}%</span>
+   </button>`).join('');
+  body=`<div class="sec">4.200 jalur transisi per wilayah — keluarga Metering</div>
+  <div class="card"><div style="display:flex;flex-direction:column;gap:4px">${rows}</div>
+  <div class="note" style="margin-top:14px">Alokasi mengikuti jumlah metering per wilayah × 70,4%. Klik wilayah untuk detail. ${evChip('reg')}</div></div>
+  ${regionPanel()}`;
+ }
+ if(tab==='lvl'){
+  const rows=GRADES.map(g=>{
+   const stab=g.tot-g.z18-g.mon;
+   const w=v=>(v/g.tot*100).toFixed(1);
+   return `<div class="zrow" style="cursor:default">
+    <span class="zl"><b>${g.g} · ${g.d}</b><span>${fID(g.tot)} orang</span></span>
+    <span class="ztrack seg"><i class="zg" style="width:${w(stab)}%"></i><i class="zm" style="width:${w(g.mon)}%"></i><i class="za" style="width:${w(g.z18)}%"></i></span>
+    <span class="zv"><b>${g.z18?fID(g.z18):'—'}</b> zona 18 bln<br><span style="color:var(--faint)">${fID(g.mon)} dipantau</span></span>
+   </div>`;}).join('');
+  body=`<div class="sec">Zona eksposur per tingkat kapabilitas — 52.143 orang</div>
+  <div class="card"><div style="display:flex;flex-direction:column;gap:4px">${rows}</div>
+  <div class="legrow" style="margin-top:16px">
+   <span><i style="background:#22303F"></i>Stabil</span>
+   <span><i style="background:var(--p4)"></i>Keluarga dipantau (eksposur ≥25%)</span>
+   <span><i style="background:var(--amber)"></i>Zona 18 bulan (Metering)</span>
+  </div>
+  <div class="note">Zona 18 bulan terkonsentrasi di G2–G4 — 3.820 dari 4.200 (91%); tenaga lapangan inti. G6–G7 nyaris tidak tersentuh: 120 orang. Keluarga dipantau = Layanan Pelanggan, Keuangan &amp; Korporat, Aset &amp; Rekayasa (16.470 orang). ${evChip('lvl')}</div></div>`;
+ }
+ return `
+ <h1 class="vt">Peta Eksposur AI</h1>
+ <div class="vsub">Di mana pekerjaan berubah, dan seberapa cepat — tiga dimensi dari potret yang sama</div>
+ ${tabs}
+ ${body}
+ ${foot()}`;
+}
+
+/* ================================================================
+   TAMPILAN 3 — ARSITEKTUR
+================================================================ */
+function vArsitektur(){
+ const f=famOf(S.archFam), B=BANDS[f.id];
+ const tabs=FAM.map(x=>`<button data-archfam="${x.id}" class="${x.id===S.archFam?'on':''}">${x.s} · ${fID(x.hc)}</button>`).join('');
+ const bandRows=B.show.map(b=>`
+  <div style="padding:13px 0;border-bottom:1px solid var(--line)">
+   <div class="bandid"><span class="bc">${b.c}${b.baru?' · BARU':''}</span><span class="bn">${b.n}</span><span class="bl">${b.lv}${b.hc?' · '+fID(b.hc)+' orang':''}</span></div>
+   ${b.old?`<div class="bandold">Nama jabatan lama yang dilebur ke sini: ${b.old}</div>`:''}
+  </div>`).join('');
+ const grades=[['G1','Pemula — mengenal pekerjaan, bekerja dengan arahan penuh'],['G2','Terampil — mandiri pada pekerjaan rutin'],['G3','Mahir — mandiri penuh pada lingkup standar'],['G4','Mahir Senior — menangani kasus non-standar, membimbing rekan'],['G5','Penyelia — memimpin praktik di unitnya, menjadi rujukan'],['G6','Pakar — otoritas lintas unit, perancang standar'],['G7','Pakar Utama — otoritas tingkat perusahaan, penentu arah']];
+ return `
+ <h1 class="vt">Arsitektur Kapabilitas</h1>
+ <div class="vsub">Dari 1.806 nama jabatan ke tingkat + bidang + portofolio keahlian — tanpa menyentuh kontrak kerja</div>
+
+ <div class="sec">Dari 1.806 nama jabatan</div>
+ <div class="funnel">
+  <div class="fstage"><div class="fnum">1.806</div><div class="flab">nama jabatan unik</div><div class="fsub">HRIS — teks bebas; 43 kembaran makna lintas wilayah</div></div>
+  <div class="farrow">→</div>
+  <div class="fstage"><div class="fnum">12</div><div class="flab">keluarga jabatan</div><div class="fsub">kelompok domain pekerjaan</div></div>
+  <div class="farrow">→</div>
+  <div class="fstage"><div class="fnum">78</div><div class="flab">pita kapabilitas</div><div class="fsub">unit kompetensi dengan definisi tingkat yang bisa diuji</div></div>
+  <div class="farrow">→</div>
+  <div class="fstage"><div class="fnum">341</div><div class="flab">keahlian</div><div class="fsub">taksonomi 3 lapis — dari 3.400+ nama kursus yang diseragamkan</div></div>
+ </div>
+ <div class="note" style="margin-top:12px">${evChip('titles')} — Struktur akhir ditandatangani Direktur SDM pada Hari ke-45. Pilihan kerangka: campuran — tingkatan mengikuti SFIA untuk domain digital dan teknis, pita operasi lapangan dibangun khusus untuk klien (dibahas pada slide 6 deck).</div>
+
+ <div class="sec">Tingkatan kapabilitas — G1 sampai G7</div>
+ <div class="card"><div class="ladder">${grades.map(g=>`<div class="g"><b>${g[0]}</b><span>${g[1]}</span></div>`).join('')}</div>
+ <div class="note" style="margin-top:16px"><b style="color:var(--ink)">Golongan dan remunerasi tidak disentuh.</b> Tingkat kapabilitas adalah lapisan baru di atas golongan — pindah pita tidak membuka ulang kontrak kerja. Ini yang membuat 52.000 orang bisa bergerak tanpa 52.000 renegosiasi.</div></div>
+
+ <div class="sec">Dua nama, satu pekerjaan yang sama</div>
+ <div class="card">
+  <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+   <span class="chip">Engineer Madya — Sulawesi</span><span style="color:var(--faint)">≡</span>
+   <span class="chip">Senior Technician II — Sumatera</span><span style="color:var(--faint)">→</span>
+   <span class="chip" style="border-color:rgba(232,164,53,.5);color:var(--amber)">FM-03 · Tingkat G4</span>
+  </div>
+  <div class="note" style="margin-top:12px">Enam puluh tahun institusi, dua nama untuk pekerjaan yang sama. Di pita FM-02 saja, <b style="color:var(--ink)">47 nama jabatan berbeda</b> dilebur menjadi satu pita dengan definisi tingkat yang bisa diuji dua arah.</div>
+ </div>
+
+ <div class="sec">Sebelum &amp; sesudah — orang yang sama</div>
+ <div class="anat">
+  <div class="card before"><h5>BERBASIS JABATAN</h5><div class="ttl">Petugas Pembaca Meter Senior</div><div class="rw">Gol. III/d · Jawa Barat · masa kerja 24 tahun</div><div class="nt">Identitas, gaji, dan wewenang melekat pada nama jabatan. Pindah pekerjaan = buka ulang kontrak.</div></div>
+  <div class="ar">→</div>
+  <div class="card"><h5>BERBASIS KAPABILITAS</h5><div class="ttl">Tingkat G4 · Pita FM-02</div><div class="rw">Portofolio 6 kapabilitas — 3 terukur · 1 inferens · 1 deklarasi · 1 kosong</div><div class="nt">Tingkat + bidang + portofolio keahlian. Pindah pita tanpa menyentuh golongan — kontrak tetap. <a class="evlink" href="#/direktori" data-flink="fm">Buka profil aslinya →</a></div></div>
+ </div>
+
+ <div class="sec">Telusuri keluarga jabatan &amp; pita</div>
+ <div class="famtabs">${tabs}</div>
+ <div class="card">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px">
+   <div style="font-size:15px;font-weight:600;${f.hot?'color:var(--amber)':''}">${f.nm}</div>
+   <div class="note">${B.show.length} dari ${B.tot} pita ditampilkan · struktur lengkap di dokumen arsitektur</div></div>
+  ${bandRows}
+ </div>
+ ${foot()}`;
+}
+
+/* ================================================================
+   TAMPILAN 4 — PENEMPATAN ULANG (MOMEN UTAMA)
+================================================================ */
+function dotsHTML(){
+ let out=''; let i=0;
+ PATHS.forEach(pt=>{ const nDots=pt.cnt/10;
+  for(let k=0;k<nDots;k++){
+   if(S.revealed){ out+=`<span class="dot" style="background:${pt.c==='P5'?'transparent':`var(--${pt.c.toLowerCase()})`};${pt.c==='P5'?'border:1.5px dashed var(--p5)':''}"></span>`; }
+   else out+=`<span class="dot" data-p="${pt.c.toLowerCase()}" style="transition-delay:${(i*2.4).toFixed(1)}ms"></span>`;
+   i++; } });
+ return out;
+}
+function pathCards(final){
+ return PATHS.map((pt,idx)=>{
+  const cls=S.revealed&&final?'in':'';
+  return `<div class="pcard ${cls}" style="${S.revealed&&final?'':'transition-delay:'+(idx*110)+'ms'}">
+   <div class="code">${pt.c} · ${pt.pct}% DARI 4.200</div>
+   <div class="nm">${pt.nm}</div>
+   <div class="cnt"><span data-pcnt="${pt.cnt}">${S.revealed&&final?fID(pt.cnt):'0'}</span><span class="pct">orang</span></div>
+   <div class="dst">→ ${pt.tujuan}</div>
+   <div class="bukti">${pt.bukti}</div>
+   <div class="meta"><span class="ev ${pt.c==='P1'?'ev-t':'ev-i'}">KEYAKINAN ${pt.key.toUpperCase()}</span><span class="chip">${pt.w}</span></div>
+   ${pt.note?`<div class="note" style="margin-top:8px;font-size:11px">${pt.note}</div>`:''}
+   <a class="lnk" href="#/direktori" data-plink="${pt.c}">Lihat orangnya →</a>
+  </div>`; }).join('');
+}
+function vRedeployment(){
+ const rev=S.revealed;
+ return `
+ <h1 class="vt">Penempatan Ulang</h1>
+ <div class="vsub">Keluarga Metering Lapangan &amp; Operasi Manual · 5.987 orang · 18 bulan — jawaban atas temuan Hari ke-30</div>
+
+ <div class="sec">Konteks — hitung mundur 18 bulan, sudah berjalan 4 bulan</div>
+ <div class="card qwrap"><div class="tl">
+   <div class="tl-fill"></div>
+   <div class="tl-now"><span>HARI INI · BULAN KE-4</span><i></i></div>
+   <div class="tl-node"><div class="t">BULAN 0 · TRIWULAN IV 2025</div><div class="d">Kontrak 1,9 juta meter pintar ditandatangani divisi Distribusi (PR-2025-1187)</div></div>
+   <div class="tl-node"><div class="t">BULAN KE-6</div><div class="d">Gelombang 1 — 600 ribu meter terpasang</div></div>
+   <div class="tl-node"><div class="t">BULAN KE-12</div><div class="d">Gelombang 2 — 1,3 juta meter terpasang</div></div>
+   <div class="tl-node end"><div class="t">BULAN KE-18</div><div class="d">±70% pekerjaan keluarga Metering terotomasi — ${evChip('clock')}</div></div>
+ </div></div>
+
+ <div class="sec">Dari angka ke orang</div>
+ <div class="aha">
+  <div id="pre" ${rev?'class="off"':''}>
+   <div class="big">4.200</div>
+   <div class="sub">pekerjaan setara 4.200 peran akan hilang dalam 18 bulan</div>
+   <p>Inilah angka yang sampai ke Serikat Pekerja sebagai kabar: <i>konsultan sedang memetakan siapa yang dipotong.</i> Angka yang sama, dibaca dengan data kapabilitas — 3.112 profil terverifikasi di keluarga ini — menceritakan hal yang lain. Di bawah ada 420 titik. Satu titik = 10 orang.</p>
+   <div id="dotgrid">${dotsHTML()}</div>
+   <div class="dotcap">4.200 orang · Metering Lapangan &amp; Operasi Manual</div>
+   <div style="margin-top:26px"><button class="btn btn-a" data-reveal>Tunjukkan ke mana 4.200 orang ini pergi →</button></div>
+  </div>
+  <div id="post" ${rev?'class="on"':''}>
+   <div class="big2"><span class="am">0 PHK</span> · 4.200 jalur transisi</div>
+   <div class="statrow">
+    <div><b>42%</b>tetap di jantung pekerjaan baru: meter pintar</div>
+    <div><b>53%</b>pindah ke pita terdekat</div>
+    <div><b>5%</b>program mendalam — ditampilkan apa adanya</div>
+   </div>
+   <div id="dotgrid">${dotsHTML()}</div>
+   <div class="dotcap">warna = pita tujuan · 1 titik = 10 orang</div>
+  </div>
+ </div>
+
+ <div id="stack" class="stack ${rev?'in':''}">
+  <div class="s1s" style="width:42.4%"></div><div class="s2s" style="width:29.5%"></div>
+  <div class="s3s" style="width:15.2%"></div><div class="s4s" style="width:7.9%"></div><div class="s5s" style="width:5%"></div>
+ </div>
+ <div class="legrow">
+  <span><i style="background:var(--p1)"></i>Meter pintar &amp; telemetri — 1.780</span>
+  <span><i style="background:var(--p2)"></i>Jaringan &amp; aset — 1.240</span>
+  <span><i style="background:var(--p3)"></i>Pelanggan &amp; komunitas — 640</span>
+  <span><i style="background:var(--p4)"></i>K3 lapangan — 330</span>
+  <span><i style="border:1.5px dashed var(--p5)"></i>Program mendalam — 210</span>
+ </div>
+
+ <div class="sec">Lima jalur — dengan bukti &amp; keyakinan</div>
+ <div id="paths" class="${rev?'in':''}">${pathCards(true)}</div>
+ <div class="note" style="margin-top:14px">Komposisi berdasarkan 3.112 profil terverifikasi (52% keluarga) ditambah inferens untuk sisanya — bisa bergeser ±10% seiring verifikasi, dan itu kami nyatakan sejak sekarang. ${evChip('split')} ${evChip('disp')}</div>
+ ${rev?'<div style="margin-top:14px"><button class="btn btn-g" data-replay>⟲ Putar ulang momen ini</button></div>':''}
+
+ <div class="sec">Orang di balik angka</div>
+ <div class="pcards">${['EMP-48213','EMP-47720','EMP-46981','EMP-49842','EMP-45118','EMP-50117'].map(personCard).join('')}</div>
+
+ <div class="sec">Yang tidak kami haluskan — 210 orang</div>
+ <div class="callout">
+  <b>210 orang tidak kami paksa masuk jalur 9–12 minggu.</b> Celah kemampuan digital atau preferensi peran non-lapangan tidak bisa dijembatani secepat itu. Program 6–12 bulan dirancang per orang, menuju pita yang benar-benar membutuhkan: fasilitas, armada, dukungan operasi data. Ini bagian rencana yang paling tidak pasti — dan kami memilih menampilkannya apa adanya, bukan menghaluskannya menjadi "pelatihan ulang" kosmetik. Hasilnya diperbarui setiap gelombang verifikasi. ${evChip('split')}
+  <div class="note" style="margin-top:10px">Bagi mereka, verifikasi bukan formalitas: diagnosis dilakukan bersama karyawan dan atasannya, dan hasilnya menentukan desain program — bukan sebaliknya.</div>
+ </div>
+
+ <div class="sec">Ekonomi — tanpa data payroll</div>
+ <div class="card">
+  <div class="ebar"><div class="lb"><span>Biaya transisi terencana — 4.200 orang (${evChip('e1')})</span><b>Rp 138,6 miliar</b></div><div class="tr"><div class="fl" style="width:66%;background:var(--amber)"></div></div></div>
+  <div class="ebar"><div class="lb"><span>Biaya berdiam diri — skenario 2027 (${evChip('e3')})</span><b>≥ Rp 210 miliar</b></div><div class="tr"><div class="fl" style="width:100%;background:var(--p4)"></div></div></div>
+  <div class="note">Semua rupiah memakai taksiran rentang gaji per golongan BUMN, ±20% — akses Payroll Oracle dibatasi kebijakan Kementerian (${evChip('sal')}). Perbandingan dengan "PHK lalu rekrut ulang" (Rp 45–60 juta/orang, ${evChip('e2')}) sengaja tidak kami jadikan argumen utama: PHK memang bukan pilihan. Biaya penugasan Rp 3,5 miliar dibayar sekali — arsitektur dan mesin keputusannya menjadi milik klien dan bisa dipakai ulang.</div>
+ </div>
+
+ <div class="sec">Satu data, tiga bahasa</div>
+ <div class="trio">
+  <div class="tcard"><h5>UNTUK DEWAN KOMISARIS</h5><p>4.200 jalur transisi dengan bukti per orang — bukan program massal tanpa wajah. Hasil yang bisa dipertanggungjawabkan: waktu, biaya, 0 PHK. Selisih ±Rp 71 miliar terhadap skenario berdiam diri, sebelum menghitung nilai layanan.</p></div>
+  <div class="tcard"><h5>UNTUK KEMENTERIAN</h5><p>Kepatuhan penuh pada kebijakan data dan ketenagakerjaan. Tidak ada pemutusan hubungan kerja. Setiap angka bisa diaudit sampai ke sumbernya — termasuk yang keyakinannya rendah, karena ditandai apa adanya.</p></div>
+  <div class="tcard"><h5>UNTUK SERIKAT PEKERJA</h5><p>Status kepegawaian dan golongan dipertahankan. Setiap anggota punya jalur bernama. Verifikasi profil dilakukan bersama — bukan dikte dari pusat. Negosiasi formal hanya setelah data konkret tersedia.</p></div>
+ </div>
+ ${foot()}`;
+}
+function personCard(id){
+ const p=PEOPLE.find(x=>x.id===id), r=readyOf(p);
+ return `<div class="person" data-emp="${p.id}">
+  <div class="nm">${p.nm} <span>${p.um} th</span></div>
+  <div class="tl2">${p.tl} · ${p.rg}</div>
+  <div class="tags">${stChip(p.st)}<span class="chip">${p.gol} → ${p.gr}</span><span class="chip">${p.band}</span></div>
+  <div class="mini">${r?`<div class="lb">Kesiapan jalur ${p.p}: <b style="color:var(--ink)">${r[0]}–${r[1]}%</b> · ${p.w||PW[p.p]}</div><div class="tr"><div class="fl" style="left:${r[0]}%;width:${r[1]-r[0]}%"></div></div>`
+   :`<div class="lb">Kesiapan: <b style="color:var(--amber)">belum bisa dinilai</b> — data keahlian kosong · verifikasi 15 menit</div><div class="tr" style="border:1px dashed var(--faint);background:none"></div>`}</div>
+  <span class="op">Buka profil →</span></div>`;
+}
+
+/* ================================================================
+   TAMPILAN 5 — PEMANTAUAN TRANSISI
+================================================================ */
+function feedHTML(){
+ const list=NOTIF.filter(n=> S.nf==='all' || (S.nf==='act'? n.cat==='TINDAKAN' : n.to===S.nf));
+ if(!list.length) return '<div class="empty" style="padding:20px 0">Tidak ada notifikasi dalam kategori ini.</div>';
+ return list.map(n=>`
+  <div class="fitem">
+   <div class="ftime">${n.tm}<div>${TOCHIP[n.to]}</div></div>
+   <div class="fbody">
+    <div class="ftags">${n.cat==='TINDAKAN'?'<span class="chip" style="border-color:rgba(232,164,53,.5);color:var(--amber)">PERLU TINDAKAN</span>':`<span class="chip">${n.cat}</span>`}</div>
+    <div class="fmsg">${n.msg}</div>
+    ${n.acts?`<div class="facts">${n.acts.map(a=>`<button class="btn btn-g sm" data-act="${a[0]}">${a[1]}</button>`).join('')}</div>`:''}
+   </div>
+  </div>`).join('');
+}
+function renderFeed(){
+ const f=byId('feed'); if(!f) return;
+ f.innerHTML=feedHTML();
+ document.querySelectorAll('[data-nf]').forEach(b=>b.classList.toggle('on',b.dataset.nf===S.nf));
+}
+function vPemantauan(){
+ const progRows=PROG.map(r=>`
+  <tr><td><div class="nm2">${r[0]}</div><div class="sub2">${r[1]}</div></td>
+  <td class="nm2">${r[2]}</td><td class="dim2">${r[3]}</td><td class="dim2">${r[4]}</td>
+  <td class="dim2">${r[5]}</td><td class="dim2" style="max-width:280px">${r[6]}</td></tr>`).join('');
+ const mile=Object.keys(MILE).map(id=>{
+  const p=PEOPLE.find(x=>x.id===id), m=MILE[id];
+  return `<div class="card" style="padding:16px 18px">
+   <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+    <div><b style="font-size:14px">${p.nm}</b><div class="note" style="font-size:11px;margin-top:1px">${p.tl} · ${p.rg}</div></div>
+    <span class="chip" ${p.p==='P5'||id==='EMP-45118'?'style="border-color:rgba(232,164,53,.5);color:var(--amber)"':''}>${m.chip}</span>
+   </div>
+   <div class="pstep">${m.steps.map(s=>`<div class="st ${s[0]}"><i></i><b>${s[1]}</b><span>${s[2]}</span></div>`).join('')}</div>
+  </div>`;}).join('');
+ return `
+ <h1 class="vt">Pemantauan Transisi</h1>
+ <div class="vsub">Status pilot 250 orang · Hari 30–60 · diperbarui setiap pagi — terakhir 2 Mar 2026</div>
+
+ <div class="kpis k4">
+  <div class="kpi"><div class="n" data-cnt="250" data-fmt="int">0</div><div class="l">Verifikasi cepat selesai<span>dari target 2.000 pada Hari ke-75</span></div></div>
+  <div class="kpi"><div class="n" data-cnt="198" data-fmt="int">0</div><div class="l">Dalam pelatihan<span>dari 250 peserta pilot</span></div></div>
+  <div class="kpi"><div class="n" data-cnt="37" data-fmt="int">0</div><div class="l">Modul pertama tuntas<span>jalur tercepat: P3 — 6 minggu</span></div></div>
+  <div class="kpi hot"><div class="n">3</div><div class="l">Perlu tindakan<span>tenggat terlewat / menunggu konfirmasi — ${evChip('mon')}</span></div></div>
+ </div>
+
+ <div class="sec">Notifikasi — ke HRBP, karyawan, dan Serikat Pekerja</div>
+ <div class="famtabs" style="margin-bottom:8px">
+  <button data-nf="all" class="${S.nf==='all'?'on':''}">Semua</button>
+  <button data-nf="act" class="${S.nf==='act'?'on':''}">Perlu tindakan</button>
+  <button data-nf="hrbp" class="${S.nf==='hrbp'?'on':''}">HRBP</button>
+  <button data-nf="kar" class="${S.nf==='kar'?'on':''}">Karyawan</button>
+  <button data-nf="sp" class="${S.nf==='sp'?'on':''}">Serikat Pekerja</button>
+ </div>
+ <div class="card" style="padding:6px 22px"><div id="feed">${feedHTML()}</div></div>
+
+ <div class="sec">Kemajuan per jalur — pilot 250</div>
+ <div style="overflow-x:auto"><table class="tbl"><thead><tr><th>Jalur</th><th>Peserta</th><th>Dalam pelatihan</th><th>Modul 1 tuntas</th><th>Sertifikasi terjadwal</th><th>Catatan</th></tr></thead>
+ <tbody>${progRows}
+ <tr style="border-top:1px solid var(--line2)"><td class="nm2">Total</td><td class="nm2">250</td><td class="nm2">198</td><td class="nm2">37</td><td class="dim2">9</td><td class="dim2">—</td></tr>
+ </tbody></table></div>
+
+ <div class="sec">Tonggak per orang — contoh dari pilot</div>
+ <div class="mgrid">${mile}</div>
+
+ <div class="callout" style="margin-top:24px">
+  <b>Bukan pengawasan kinerja.</b> Indikator transisi terlihat oleh tiga pihak sekaligus: karyawan yang bersangkutan, HRBP, dan perwakilan Serikat Pekerja. Tidak ada satu pun data transisi yang mengalir ke penilaian kinerja — dua sistem itu tetap terpisah, dan itu disengaja.
+ </div>
+
+ <div class="sec">Berikutnya</div>
+ <div class="card"><p class="note" style="font-size:13px">Hari ke-75: verifikasi 2.000 profil · gelombang praktik P1 Jawa Barat &amp; Sumatera · penempatan pertama 12 peserta P3. Hari ke-90: paket keputusan Dewan — ekonomi final dan peta jalan 12 bulan. Yang tidak berubah: aturan main bukti, dan 0 PHK.</p></div>
+ ${foot()}`;
+}
+
+/* ================================================================
+   TAMPILAN 6 — UJI PARALEL
+================================================================ */
+function vParalel(){
+ const findings=[
+  ['Tingkat tidak sejalan dengan bukti','31','19 kasus sistem lama lebih rendah (contoh: Eko Nugroho — Level 2, bukti menunjukkan G3) · 12 lebih tinggi (Agus Wijaya — Level 5, bukti G4)','24 selesai · 7 antrian'],
+  ['Identitas ganda lintas sistem','9','Nama dan tanggal lahir identik di dua unit — semua terpecahkan','Selesai'],
+  ['Sertifikasi kedaluwarsa tercatat aktif','5','Sertifikasi bekerja di ketinggian tahun 2021','Diperbarui'],
+  ['Nama jabatan tak terpetakan','3','Dikonfirmasi pemilik prosesnya','Selesai'],
+  ['Riwayat pelatihan LMS ≠ HRIS','17','Kursus selesai di LMS, tidak tercatat di HRIS','Selesai sinkron']
+ ].map(f=>`<tr><td class="nm2">${f[0]}</td><td class="nm2">${f[1]}</td><td class="dim2" style="max-width:360px">${f[2]}</td><td class="dim2">${f[3]}</td></tr>`).join('');
+ const contoh=[
+  {nm:'Eko Nugroho',um:'28 th · masa kerja 4 th',tl:'Meter Reader II · Jawa Tengah & DIY',l:'Level 2',a:'G3',v:'LAMA LEBIH RENDAH',bad:1,
+   nt:'Kendali mutu pembacaan 98,9% · 4 kursus analitik. Sistem lama menilai dari masa kerja — talenta muda terremehkan.'},
+  {nm:'Agus Wijaya',um:'52 th · masa kerja 29 th',tl:'Senior Technician II · Sumatera',l:'Level 5',a:'G4',v:'LAMA LEBIH TINGGI',bad:1,
+   nt:'Level 5 dari 29 tahun senioritas; bukti mutakhir: sertifikasi 2021 — perlu perpanjangan. ARUS: G4.'},
+  {nm:'Budi Santoso',um:'47 th · masa kerja 24 th',tl:'Petugas Pembaca Meter Senior · Jawa Barat',l:'Level 4',a:'G4',v:'SELARAS',bad:0,
+   nt:'Masa kerja dan bukti sejalan. Ini kasus terbanyak — selaras — dan justru itu yang membuat ketidaksesuaian lain terlihat.'}
+ ].map(x=>`
+  <div class="person" style="cursor:default">
+   <div class="nm">${x.nm} <span>${x.um}</span></div>
+   <div class="tl2">${x.tl}</div>
+   <div class="idrow" style="margin-top:12px">
+    <div class="idpill"><span>SISTEM LAMA</span>${x.l} — basis masa kerja</div>
+    <div class="idpill"><span>ARUS</span>${x.a} — basis bukti</div>
+   </div>
+   <div class="tags" style="margin-top:10px"><span class="chip" ${x.bad?'style="border-color:rgba(232,164,53,.5);color:var(--amber)"':''}>${x.v}</span></div>
+   <div class="note" style="margin-top:8px">${x.nt}</div>
+  </div>`).join('');
+ return `
+ <h1 class="vt">Uji Paralel</h1>
+ <div class="vsub">ARUS berjalan berdampingan dengan sistem lama sejak Hari ke-30 — tidak ada yang berubah secara diam-diam</div>
+
+ <div class="sec">Cara kerjanya</div>
+ <div class="funnel">
+  <div class="fstage"><div class="flab">Sistem lama tetap sumber kebenaran</div><div class="fsub">SAP · kompetensi lama · penilaian per wilayah — golongan, gaji, kontrak tidak pernah ditulis ARUS</div></div>
+  <div class="farrow">→</div>
+  <div class="fstage"><div class="flab">ARUS hanya membaca</div><div class="fsub">tanpa pengecualian — tidak ada penulisan balik tanpa persetujuan</div></div>
+  <div class="farrow">→</div>
+  <div class="fstage"><div class="flab">Perbedaan dicatat sebagai temuan</div><div class="fsub">tingkat · identitas · sertifikasi · riwayat pelatihan</div></div>
+  <div class="farrow">→</div>
+  <div class="fstage"><div class="flab">Review bersama → tulis balik</div><div class="fsub">HRBP + karyawan + (bila relevan) Serikat Pekerja — dengan jejak audit penuh</div></div>
+ </div>
+
+ <div class="sec">Temuan pada pilot — 250 profil</div>
+ <div class="card" style="padding:8px 12px"><table class="tbl"><thead><tr><th>Temuan</th><th>Jumlah</th><th>Contoh nyata</th><th>Status</th></tr></thead>
+ <tbody>${findings}
+ <tr style="border-top:1px solid var(--line2)"><td class="nm2">Total</td><td class="nm2">65</td><td class="dim2">26% profil pilot punya minimal satu ketidaksesuaian</td><td class="dim2">58 selesai · 7 antrian</td></tr>
+ </tbody></table></div>
+ <div class="note" style="margin-top:12px">Satu dari empat profil pilot menyimpan ketidaksesuaian — bukti bahwa berjalan paralel bukan formalitas. ${evChip('dual')}</div>
+
+ <div class="sec">Contoh nyata — sistem lama vs bukti</div>
+ <div class="pcards">${contoh}</div>
+ <div class="note" style="margin-top:12px">Pola yang muncul: sistem lama menilai dari masa kerja, ARUS dari bukti. Di kultur senioritas, keduanya sering berbeda — dan arah bedanya tidak sepihak: talenta muda diremehkan, senioritas tanpa bukti mutakhir dinaikkan.</div>
+
+ <div class="sec">Batas penulisan balik</div>
+ <div class="grid2" style="grid-template-columns:1fr 1fr">
+  <div class="card"><h5 style="font-size:10px;letter-spacing:.14em;color:var(--faint);margin-bottom:10px">ARUS TIDAK PERNAH MENULIS</h5><p class="note" style="font-size:13px">Golongan · remunerasi · kontrak kerja · data payroll. Sistem lama tetap satu-satunya sumber kebenaran untuk keempatnya — tanpa pengecualian.</p></div>
+  <div class="card"><h5 style="font-size:10px;letter-spacing:.14em;color:var(--faint);margin-bottom:10px">DITULIS BALIK — HANYA SETELAH VERIFIKASI BERSAMA</h5><p class="note" style="font-size:13px">Profil kapabilitas · riwayat pelatihan tervalidasi · hasil sertifikasi. Setiap penulisan balik meninggalkan jejak audit yang bisa dibuka kapan saja oleh Serikat Pekerja dan Kementerian.</p></div>
+ </div>
+ <div class="callout" style="margin-top:14px"><b>Tidak ada keputusan yang dieksekusi otomatis dari inferens.</b> Temuan → review manusia → baru ada keputusan. Aturan yang sama berlaku di semua layar aplikasi ini.</div>
+
+ <div class="sec">Hari ke-75</div>
+ <div class="card"><p class="note" style="font-size:13px">Uji paralel diperluas ke 2.000 profil. Target: ketidaksesuaian tingkat turun di bawah 5% sebelum penempatan pertama — karena penempatan hanya boleh berdiri di atas data yang sudah lolos uji.</p></div>
+ ${foot()}`;
+}
+
+/* ================================================================
+   TAMPILAN 7 — DIREKTORI
+================================================================ */
+function pRow(p){
+ const f=famOf(p.fam);
+ return `<tr class="click" data-emp="${p.id}">
+  <td><div class="nm2">${p.nm}</div><div class="sub2">${p.um} th · ${p.rg}</div></td>
+  <td class="dim2">${p.tl}<div class="sub2">Gol. ${p.gol} · masa kerja ${p.th} th</div></td>
+  <td class="dim2">${f.s}</td>
+  <td class="dim2">${p.band}</td>
+  <td>${stChip(p.st)}</td>
+  <td class="dim2">${pct(f.exp)}</td>
+  <td>${p.p?`<span class="chip">${p.p} · ${PN[p.p]}</span>`:'<span class="sub2">—</span>'}</td></tr>`;
+}
+function filteredPeople(){
+ return PEOPLE.filter(p=>
+  (S.dq===''||(p.nm+' '+p.tl+' '+p.band+' '+p.rg).toLowerCase().includes(S.dq)) &&
+  (S.dFam==='all'||p.fam===S.dFam) && (S.dSt==='all'||p.st===S.dSt) &&
+  (S.dPath==='all'||(S.dPath==='none'?!p.p:p.p===S.dPath)));
+}
+function vDirektori(){
+ const rows=filteredPeople();
+ return `
+ <h1 class="vt">Direktori Karyawan</h1>
+ <div class="vsub">Profil kapabilitas per orang — untuk Manajer SDM &amp; mitra SDM · 58 profil contoh dari 52.143</div>
+ <div class="filters">
+  <input id="q" type="text" placeholder="Cari nama, jabatan, pita, wilayah…" value="${S.dq}"/>
+  <select id="f-fam"><option value="all">Semua keluarga jabatan</option>${FAM.map(f=>`<option value="${f.id}" ${S.dFam===f.id?'selected':''}>${f.s}</option>`).join('')}</select>
+  <select id="f-st"><option value="all">Semua status bukti</option><option value="t" ${S.dSt==='t'?'selected':''}>Terverifikasi</option><option value="p" ${S.dSt==='p'?'selected':''}>Sebagian</option><option value="d" ${S.dSt==='d'?'selected':''}>Deklarasi</option><option value="k" ${S.dSt==='k'?'selected':''}>Kosong</option></select>
+  <select id="f-path"><option value="all">Semua jalur</option>${PATHS.map(x=>`<option value="${x.c}" ${S.dPath===x.c?'selected':''}>${x.c} · ${PN[x.c]}</option>`).join('')}<option value="none" ${S.dPath==='none'?'selected':''}>Bukan keluarga Metering</option></select>
+ </div>
+ <div class="note" style="margin-bottom:10px">Menampilkan <b id="cnt" style="color:var(--ink)">${rows.length}</b> dari 58 profil contoh. Klik baris untuk profil lengkap: penyatuan identitas, portofolio kapabilitas beserta buktinya, tiga jalur terdekat, dan perbandingan uji paralel.</div>
+ <div style="overflow-x:auto"><table class="tbl"><thead><tr><th>Nama</th><th>Jabatan saat ini</th><th>Keluarga</th><th>Pita</th><th>Status bukti</th><th>Eksposur</th><th>Jalur</th></tr></thead>
+ <tbody id="tb">${rows.map(pRow).join('')||'<tr><td colspan="7" class="empty">Tidak ada profil yang cocok — ubah filter.</td></tr>'}</tbody></table></div>
+ ${foot()}`;
+}
+
+/* ---------------- PANEL PROFIL ---------------- */
+function drawerHTML(p){
+ const f=famOf(p.fam), r=readyOf(p), caps=capsOf(p), dual=dualOf(p);
+ const capRows=caps.map(cp=>`
+  <div class="cap-row"><span class="cn">${cp.n}</span><span class="cl">${cp.l}</span>${typeChip(cp.t)}
+  <span class="src">${cp.s}</span></div>`).join('');
+ const dualBlock=`<div class="d-sec"><h4>Uji paralel — sistem lama vs ARUS</h4>
+  <div class="idrow">
+   <div class="idpill"><span>SISTEM LAMA</span>Level ${dual.lg} — basis masa kerja</div>
+   <span class="idsep">vs</span>
+   <div class="idpill"><span>ARUS</span>${p.gr} — basis bukti${p.st==='k'?' (sementara)':''}</div>
+  </div>
+  <div style="margin-top:10px">${dualChip(dual.v)}</div>
+  <div class="note" style="margin-top:8px">Skala lama 1–5 · ARUS G1–G7 — pemetaan indikatif. Ketidaksesuaian besar masuk antrian review bersama. <a class="evlink" href="#/paralel">Lihat uji paralel →</a></div></div>`;
+ let pathBlock='';
+ const recs=pathsFor(p);
+ if(recs){
+  const gapChips=caps.filter(x=>x.t==='k'||x.t==='d').slice(0,2).map(x=>`<span class="chip" style="border-style:dashed">${x.n}</span>`).join('')||'<span class="chip">tanpa celah besar</span>';
+  const p5flag=p.p==='P5';
+  const rows=recs.map((rc,i)=>{
+   const P=pathOf(rc.code);
+   const ready=rc.r?`<div class="matchbar"><div class="fl" style="left:${rc.r[0]}%;width:${rc.r[1]-rc.r[0]}%"></div></div>
+    <div class="note">Kesiapan <b style="color:var(--ink)">${rc.r[0]}–${rc.r[1]}%</b> ${evChip('ready')}</div>`
+    :`<div class="note" style="margin-top:8px;color:var(--amber)">Kesiapan belum bisa dinilai — data keahlian kosong. Verifikasi 15 menit menerbitkan profil di hari yang sama.</div>`;
+   return `<div class="pathrow ${rc.primary?'pr-main':''}">
+    <div class="pr-top">
+     <span class="chip" ${rc.primary&&!p5flag?'style="border-color:rgba(232,164,53,.5);color:var(--amber)"':''}>${p5flag?('TERDEKAT '+(i+1)):(rc.primary?'UTAMA':'ALTERNATIF '+i)}</span>
+     <b>${P.n}</b><span class="chip">${PW[rc.code]}</span>
+    </div>
+    <div class="note" style="margin-top:5px">→ ${P.tujuan}</div>
+    ${ready}
+    <div class="tags" style="margin-top:9px;display:flex;gap:6px;flex-wrap:wrap"><span class="note" style="font-size:11px">celah utama:</span>${gapChips}</div>
+    ${rc.primary?`<div class="acc"><button class="acc-h" data-acc>Materi penyiapan — ${PW[rc.code]}</button><div class="acc-b">${KUR[rc.code].map(k=>'· '+k).join('<br>')}</div></div>`:
+    `<button class="btn btn-g sm" data-act="swap" style="margin-top:10px">Jadikan jalur utama</button>`}
+   </div>`;}).join('');
+  pathBlock=`<div class="d-sec"><h4>Rekomendasi jalur — 3 terdekat</h4>${rows}
+   <div class="note" style="margin-top:12px">Ambang kesiapan 55%: jalur terbaik di bawah ambang → program mendalam (P5), dirancang per orang. Urutan dari kedekatan pita dan bukti individual — bukan hanya masa kerja.</div>
+   ${p5flag?'<div class="flag">Semua jalur di bawah ambang 55% — program mendalam (P5) sedang berjalan. Diagnosis bersama karyawan menentukan tujuan akhir: fasilitas, armada, atau dukungan data.</div>':''}</div>`;
+ } else {
+  const dev=caps.find(x=>x.t==='k')?'lengkapi bukti untuk kapabilitas yang kosong (verifikasi 15 menit)':'pertahankan portofolio; tambahkan satu kapabilitas dari pita target 2027';
+  pathBlock=`<div class="d-sec"><h4>Arah pengembangan</h4><div class="card" style="padding:16px 18px"><p class="note">Keluarga ini di luar fokus 90 hari (eksposur ${pct(f.exp)} — dipantau, kalibrasi Hari ke-90). Dari portofolio: ${dev}. Rencana pengembangan lengkap masuk siklus 12 bulan.</p></div></div>`;
+ }
+ return `
+ <button class="d-close" data-close>×</button>
+ <div class="d-h"><div class="nm">${p.nm} <span>${p.um} th</span></div>
+  <div class="tl2">${p.tl} · Gol. ${p.gol} · masa kerja ${p.th} tahun</div>
+  <div class="tags"><span class="chip">${p.rg}</span><span class="chip">${f.s}</span><span class="chip">${p.band} · ${bandName(p.band)}</span>${stChip(p.st)}</div></div>
+ <div class="d-sec"><h4>Identitas lintas sistem</h4>
+  <div class="idrow"><div class="idpill"><span>HRIS</span>${p.id}</div><span class="idsep">⇄</span>
+  <div class="idpill"><span>LMS</span>${lmsOf(p)}</div><span class="idsep">·</span>
+  <div class="idpill lock"><span>PAYROLL</span>${pnOf(p)} — dibatasi</div></div></div>
+ <div class="d-sec"><h4>Posisi dalam arsitektur baru</h4>
+  <div class="card" style="padding:15px 18px">
+   <div style="font-size:14px;font-weight:600">Tingkat ${p.gr} · ${f.s}</div>
+   <div class="note" style="margin-top:4px">Pita ${p.band} — tingkat pita ${ (BANDS[p.fam].show.find(b=>b.c===p.band)||{}).lv || '—' }</div>
+   <div class="note" style="margin-top:10px;border-top:1px solid var(--line);padding-top:9px">Golongan ${p.gol} dan remunerasi <b style="color:var(--ink)">tidak berubah</b> — tingkat kapabilitas adalah lapisan baru, bukan pengganti kontrak.</div>
+  </div></div>
+ ${dualBlock}
+ <div class="d-sec"><h4>Portofolio kapabilitas — ${caps.length} terpetakan</h4>${capRows}
+  <div class="note" style="margin-top:10px">Setiap kapabilitas menunjukkan jenis buktinya. ${evChip('ready')} — keputusan penempatan hanya berdiri di atas bukti terukur atau terverifikasi.</div></div>
+ ${pathBlock}
+ <div class="d-actions">
+  <button class="btn btn-a" data-act="verify">Jadwalkan sesi verifikasi</button>
+  <button class="btn btn-g" data-act="dl">Unduh ringkasan 1 halaman</button>
+ </div>`;
+}
+
+/* ---------------- KAKI & RENDER ---------------- */
+function foot(){ return `<div class="foot">ARUS · pratinjau Hari ke-60 · Rakamin × ${COMPANY} · data per 28 Feb 2026 · 58 dari 52.143 profil ditampilkan</div>`; }
+
+const VIEWS={ ringkasan:vRingkasan, eksposur:vEksposur, arsitektur:vArsitektur, redeployment:vRedeployment, pemantauan:vPemantauan, paralel:vParalel, direktori:vDirektori };
+const cntUp=()=>{ document.querySelectorAll('[data-cnt]').forEach(el=>{
+   const fmt=el.dataset.fmt==='int'?fID:(n=>n), sfx=el.dataset.sfx||'';
+   countTo(el,+el.dataset.cnt,n=>fmt(n)+sfx,1100); }); };
+const AFTER={
+ ringkasan:cntUp, pemantauan:cntUp,
+ direktori(){
+   byId('q').addEventListener('input',e=>{ S.dq=e.target.value.toLowerCase().trim(); renderTBody(); });
+   byId('f-fam').addEventListener('change',e=>{ S.dFam=e.target.value; renderTBody(); });
+   byId('f-st').addEventListener('change',e=>{ S.dSt=e.target.value; renderTBody(); });
+   byId('f-path').addEventListener('change',e=>{ S.dPath=e.target.value; renderTBody(); }); }
+};
+function renderTBody(){
+ const rows=filteredPeople();
+ byId('tb').innerHTML=rows.map(pRow).join('')||'<tr><td colspan="7" class="empty">Tidak ada profil yang cocok — ubah filter.</td></tr>';
+ byId('cnt').textContent=rows.length;
+}
+function render(){
+ document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.dataset.r===S.r));
+ byId('view').innerHTML=VIEWS[S.r]();
+ closePop(); closeDrawer();
+ window.scrollTo(0,0);
+ AFTER[S.r]&&AFTER[S.r]();
+}
+
+/* ---------------- MOMEN UTAMA: reveal & putar ulang ---------------- */
+function doReveal(){
+ if(S.anim||S.revealed) return; S.anim=true; S.revealed=true;
+ document.querySelectorAll('#dotgrid .dot').forEach(d=>d.classList.add(d.dataset.p));
+ byId('stack')&&byId('stack').classList.add('in');
+ const paths=byId('paths'); if(paths){ paths.classList.add('in');
+   paths.querySelectorAll('.pcard').forEach((c,i)=>{ c.style.transitionDelay=(i*110)+'ms'; c.classList.add('in'); }); }
+ setTimeout(()=>{ byId('pre').classList.add('off'); byId('post').classList.add('on'); },350);
+ setTimeout(()=>{ document.querySelectorAll('[data-pcnt]').forEach(el=>countTo(el,+el.dataset.pcnt,fID,900)); },700);
+ setTimeout(()=>{ S.anim=false; const p=byId('paths'); p&&p.scrollIntoView({behavior:'smooth',block:'start'}); },1200);
+}
+function doReplay(){ S.revealed=false; render(); setTimeout(doReveal,420); }
+
+/* ---------------- POPOVER / TOOLTIP / PANEL / TOAST ---------------- */
+function openPop(el){
+ const d=EV[el.dataset.ev]; if(!d) return;
+ const pop=byId('pop');
+ pop.innerHTML=`<div class="pop-h"><span>${d.j}</span><button class="pop-x" data-closepop>×</button></div>
+ <div class="pop-grid">
+  <div class="pk">SUMBER</div><div>${d.s}</div>
+  <div class="pk">METODE</div><div>${d.m}</div>
+  <div class="pk">KEYAKINAN</div><div>${d.k}</div>
+  <div class="pk">KETERBATASAN</div><div>${d.x}</div>
+  <div class="pk">PEMBARUAN</div><div>${d.v}</div></div>`;
+ const r=el.getBoundingClientRect(); pop.classList.add('open');
+ const w=Math.min(340,innerWidth-16);
+ let x=Math.min(Math.max(8,r.left),innerWidth-w-8), y=r.bottom+8;
+ if(y+270>innerHeight) y=Math.max(8,r.top-270);
+ pop.style.left=x+'px'; pop.style.top=y+'px';
+}
+function closePop(){ byId('pop').classList.remove('open'); }
+function openDrawer(id){ const p=PEOPLE.find(x=>x.id===id); if(!p) return;
+ byId('drawer').innerHTML=drawerHTML(p); byId('dwrap').classList.add('open'); }
+function closeDrawer(){ byId('dwrap').classList.remove('open'); }
+
+document.addEventListener('click',e=>{
+ const t=e.target;
+ const ev=t.closest('[data-ev]');
+ if(ev){ e.preventDefault(); e.stopPropagation(); openPop(ev); return; }
+ if(t.closest('[data-closepop]')){ closePop(); return; }
+ if(byId('pop').classList.contains('open')&&!t.closest('#pop')) closePop();
+ const acc=t.closest('.acc-h'); if(acc){ acc.parentElement.classList.toggle('open'); return; }
+ const emp=t.closest('[data-emp]'); if(emp){ openDrawer(emp.dataset.emp); return; }
+ if(t.closest('[data-close]')||t.closest('#dback')){ closeDrawer(); return; }
+ const ex=t.closest('[data-exptab]'); if(ex){ S.expTab=ex.dataset.exptab; render(); return; }
+ const reg=t.closest('[data-reg]');
+ if(reg){ S.regSel=reg.dataset.reg; render(); const pnl=byId('regpanel'); if(pnl) pnl.scrollIntoView({behavior:'smooth',block:'nearest'}); return; }
+ const nf=t.closest('[data-nf]'); if(nf){ S.nf=nf.dataset.nf; renderFeed(); return; }
+ const dq=t.closest('[data-dq]');
+ if(dq){ S.dq=dq.dataset.dq.toLowerCase(); S.dFam='all'; S.dSt='all'; S.dPath='all';
+   if(S.r==='direktori'){ e.preventDefault(); render(); } return; }
+ const fam=t.closest('[data-fam]');
+ if(fam){ S.famSel=fam.dataset.fam; if(S.r==='eksposur'){ e.preventDefault(); render(); } return; }
+ const af=t.closest('[data-archfam]');
+ if(af){ S.archFam=af.dataset.archfam; if(S.r==='arsitektur'){ e.preventDefault(); render(); } return; }
+ const pl=t.closest('[data-plink]'); if(pl){ S.dPath=pl.dataset.plink; S.dFam='all'; S.dSt='all'; return; }
+ const fl=t.closest('[data-flink]'); if(fl){ S.dFam=fl.dataset.flink; S.dPath='all'; S.dSt='all'; return; }
+ if(t.closest('[data-reveal]')){ doReveal(); return; }
+ if(t.closest('[data-replay]')){ doReplay(); return; }
+ const act=t.closest('[data-act]'); if(act){ toast(ACT[act.dataset.act]||'Tercatat.'); return; }
+});
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closePop(); closeDrawer(); } });
+document.addEventListener('mousemove',e=>{
+ const el=e.target.closest?e.target.closest('[data-tip]'):null; const tt=byId('tt');
+ if(el){ const parts=el.dataset.tip.split('~');
+  tt.innerHTML='<b>'+parts[0]+'</b>'+parts.slice(1).map(x=>'<span>'+x+'</span>').join('');
+  tt.classList.add('open');
+  let x=e.clientX+14,y=e.clientY+16; const r=tt.getBoundingClientRect();
+  if(x+r.width>innerWidth-8)x=e.clientX-r.width-10;
+  if(y+r.height>innerHeight-8)y=e.clientY-r.height-10;
+  tt.style.left=x+'px'; tt.style.top=y+'px';
+ } else tt.classList.remove('open');
+});
+document.addEventListener('scroll',()=>byId('tt').classList.remove('open'),{passive:true});
+
+/* ---------------- ROUTER ---------------- */
+const ROUTES=['ringkasan','eksposur','arsitektur','redeployment','pemantauan','paralel','direktori'];
+function nav(){ let h=(location.hash||'').replace('#/','')||'ringkasan';
+ if(!ROUTES.includes(h)) h='ringkasan'; S.r=h; render(); }
+window.addEventListener('hashchange',nav);
+byId('buildline').textContent='Pratinjau Hari ke-60 · Rakamin × '+COMPANY;
+nav();
+</script>
+</body>
+</html>
